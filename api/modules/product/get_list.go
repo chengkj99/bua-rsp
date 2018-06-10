@@ -7,33 +7,19 @@ import (
 	"github.com/labstack/echo"
 )
 
-type ProductInfo struct {
-	Id            int    `json:"id"`
-	Name          string `json:"name"`
-	OriginalPrice string `json:"original_price"`
-	FirmModel     string `json:"firm_model"`
-	Parameter     string `json:"parameter"`
-	FunctionalUse string `json:"functional_use"`
-	Desc          string `json:"desc"`
-	Contacts      string `json:"contacts"`
-	Phone         string `json:"phone"`
-	Mail          string `json:"mail"`
-}
-type Products struct {
-	Data []ProductInfo `json:"data"`
-}
-
-type Response struct {
-	Data    interface{} `json:"data"`
-	Code    int         `json:"code"`
-	Message string      `json:"message"`
-}
-
 // GetList for route of getList
 func GetList(c echo.Context) error {
 	engine := db.Engine
 	var products Products
-	engine.Sql("SELECT * FROM product").Find(&products.Data)
+
+	query := c.Request().FormValue("query")
+
+	if query == "" {
+		engine.Sql("SELECT * FROM product").Find(&products.Data)
+	} else {
+		engine.Sql("SELECT * FROM product WHERE name LIKE '%" + query + "%'").Find(&products.Data)
+		// 为什么要加单引号包起来 %query% 呢 ？
+	}
 	res := Response{
 		products.Data,
 		http.StatusOK,

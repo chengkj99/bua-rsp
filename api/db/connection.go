@@ -19,7 +19,14 @@ func CreatConn() {
 	} else {
 		fmt.Println("db engine is connected")
 	}
-	// defer db.Close()
+
+	engine.ShowSQL()
+
+	err = engine.Ping()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	// make sure connection is available
 	err = engine.Ping()
 	fmt.Println(err)

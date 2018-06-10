@@ -12,7 +12,7 @@ func Route(rg *echo.Group) {
 	rg.GET("/list", GetList)
 
 	// 新建产品
-	rg.POST("/add", Add)
+	rg.POST("/add", Create)
 
 	// 修改线路
 	rg.PUT("/update", func(c echo.Context) error {
