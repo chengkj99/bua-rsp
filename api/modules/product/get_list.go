@@ -2,7 +2,9 @@ package product
 
 import (
 	"bua-rsp/api/db"
+	"bua-rsp/api/modules/common"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo"
 )
@@ -15,24 +17,39 @@ func GetList(c echo.Context) error {
 	query := c.Request().FormValue("query")
 
 	if query == "" {
+		// 全量查询
 		engine.Sql("SELECT * FROM product").Find(&products.Data)
 	} else {
+		//  根据查询条件查询列表
 		engine.Sql("SELECT * FROM product WHERE name LIKE '%" + query + "%'").Find(&products.Data)
 		// 为什么要加单引号包起来 %query% 呢 ？
 	}
-	res := Response{
-		products.Data,
-		http.StatusOK,
-		http.StatusText(http.StatusOK),
+
+	res := common.Response{
+		Code:    http.StatusOK,
+		Message: http.StatusText(http.StatusOK),
+		Data:    products.Data,
 	}
 	return c.JSON(http.StatusOK, res)
+}
+
+// GetListByID 根据 Id 查询
+func GetListByID(c echo.Context) error {
+	engine := db.Engine
+	id, _ := strconv.Atoi(c.Param("id"))
+	product := &Product{Id: int64(id)}
+	has, err := engine.Get(product)
+	common.CheckErr(err)
+	if has {
+		return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: product})
+	}
+	return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: nil})
 }
 
 // func GetList(c echo.Context) error {
 // db := db.Db
 // 	rows, err := db.Query("SELECT * FROM product")
 // 	common.CheckErr(err)
-
 // 	// 读出查询出的列字段名
 // 	cols, _ := rows.Columns()
 // 	// values是每个列的值，这里获取到 byte 里

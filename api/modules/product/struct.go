@@ -1,7 +1,7 @@
 package product
 
 type Product struct {
-	Id            int    `json:"id"`
+	Id            int64  `json:"id"`
 	Name          string `json:"name"`
 	OriginalPrice string `json:"original_price"`
 	FirmModel     string `json:"firm_model"`
@@ -12,13 +12,9 @@ type Product struct {
 	Phone         string `json:"phone"`
 	Mail          string `json:"mail"`
 	ImgUrl        string `json:"imgUrl"`
+	Owner         string `json:"owner"`
+	Status        string `json:"status"` // enable, disable
 }
 type Products struct {
 	Data []Product `json:"data"`
-}
-
-type Response struct {
-	Data    interface{} `json:"data"`
-	Code    int         `json:"code"`
-	Message string      `json:"message"`
 }

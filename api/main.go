@@ -2,6 +2,7 @@ package main
 
 import (
 	"bua-rsp/api/db"
+	"bua-rsp/api/modules/booking"
 	"bua-rsp/api/modules/product"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -14,6 +15,7 @@ func main() {
 	db.CreatConn()
 
 	product.Route(e.Group("/product"))
+	booking.Route(e.Group("/booking"))
 
 	e.Logger.Fatal(e.Start(":1323"))
 

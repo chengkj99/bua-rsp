@@ -1,4 +1,4 @@
-package product
+package booking
 
 import (
 	"bua-rsp/api/db"
@@ -8,18 +8,13 @@ import (
 	"github.com/labstack/echo"
 )
 
-// Create for route of add
 func Create(c echo.Context) error {
-	var product Product
+	var booking Booking
 	engine := db.Engine
 
-	// 获取请求的数据
-	c.Bind(&product)
+	c.Bind(&booking)
 
-	// Insert 数据
-	// affected 的含义是，影响了多少行数据
-	affected, err := engine.Insert(&product)
+	affected, err := engine.Insert(&booking)
 	common.CheckErr(err)
-
 	return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: affected})
 }
