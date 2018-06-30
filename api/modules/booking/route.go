@@ -15,5 +15,4 @@ func Route(rg *echo.Group) {
 	rg.PUT("/update", func(c echo.Context) error {
 		return c.String(http.StatusOK, "update Booking Info")
 	})
-
 }
