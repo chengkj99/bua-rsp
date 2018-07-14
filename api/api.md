@@ -70,7 +70,7 @@
 
 #### 接口示例
 
-> 地址：[http://www.api.com/index.php?name=可口可乐&type=1](http://www.api.com/index.php?name=可口可乐&type=1)
+> 地址：[http://127.0.0.1:1323/product/list/93](http://127.0.0.1:1323/product/list/93)
 
 ```
 {
