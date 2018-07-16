@@ -4,7 +4,8 @@ import (
 	"github.com/labstack/echo"
 )
 
-// Route For product module, /product
+// Route 产品管理路由
+// 前缀 /product
 func Route(rg *echo.Group) {
 	// 获取产品列表
 	rg.GET("/list", GetList)

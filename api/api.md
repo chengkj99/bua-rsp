@@ -7,6 +7,7 @@
 - [删除产品](#删除产品)
 - [查询预约列表](#查询预约列表)
 - [新增产品预约](#新增产品预约)
+- [更新产品预约](#更新产品预约)
 
 ### 查询产品列表
 
@@ -260,6 +261,10 @@ requestBody
 
 ### 新增产品预约
 
+#### URL
+
+> [/booking/add](/booking/add)
+
 #### HTTP请求方式
 
 > POST
@@ -287,6 +292,48 @@ requestBody
 #### 接口示例
 
 > 地址：[http://127.0.0.1:1323/booking/add](http://127.0.0.1:1323/booking/add)
+
+```
+{
+  "data": 1,
+  "code": 200,
+  "message": "ok"
+}
+```
+
+### 更新产品预约
+
+#### URL
+
+> [/booking/:id](/booking/:id)
+
+#### HTTP请求方式
+
+> PUT
+
+#### 请求参数
+
+|参数|必选|类型|说明|
+|:----- |:-------|:-----|----- |
+| product_id | ture | int | 产品ID |
+| booking_man | ture | string | 预定人 |
+| start_time | ture | string | 开始时间 |
+| end_time | ture | string | 结束时间 |
+
+#### 请求示例
+
+```
+{
+	"booking_man": "zhangsan",
+	"product_id": 90,
+	"start_time": "2018-6-24 10:10:11",
+	"end_time": "2018-7-1 11:11:12"
+}
+```
+
+#### 接口示例
+
+> 地址：[http://127.0.0.1:1323/booking/5](http://127.0.0.1:1323/booking/5)
 
 ```
 {
