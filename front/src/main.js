@@ -6,6 +6,11 @@ import router from './router'
 import Movue from 'movue'
 import * as mobx from 'mobx'
 
+import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+import '../static/element-#0F7042/index.css'
+
+Vue.use(ElementUI)
 Vue.use(Movue, mobx)
 Vue.config.productionTip = false
 

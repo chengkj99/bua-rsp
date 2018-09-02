@@ -1,32 +1,16 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png"> data: {{data}}
-    <router-view/>
+    <app-layout></app-layout>
   </div>
 </template>
 
 <script>
+import AppLayout from '@/components/layout'
 import axios from 'axios'
 export default {
   name: 'App',
-  data() {
-    return {
-      data: []
-    }
-  },
-  beforeCreate() {
-    axios.get('/api/product/getList').then(
-      res => {
-        this.data = res.data
-      }
-    )
-  },
-  beforeCreate() {
-    axios.get('/api/product/getList').then(
-      res => {
-        this.data = res.data
-      }
-    )
+  components: {
+    AppLayout
   }
 }
 </script>
@@ -38,6 +22,9 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+  }
+  body{
+    margin: 0;
+    padding: 0;
   }
 </style>
