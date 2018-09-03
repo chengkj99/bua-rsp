@@ -5,30 +5,25 @@
         <img src="@/assets/img/school.png">
       </div>
       <div class="search">
-        <el-input
-          class="query-input"
-          v-model="value"
-          placeholder="请输入产品名称进行查询"
-          size="medium"
-          @keyup.enter.native="handleQuery">
-          <i slot="suffix" class="el-input__icon el-icon-search" @click="handleQuery"></i>
-        </el-input>
+        <search-input size="medium" @query="handleQuery"></search-input>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import SearchInput from '../common/search-input.vue'
 export default {
   name: 'app-head',
+  components: {
+    SearchInput
+  },
   data() {
-    return {
-      value: ''
-    }
+    return {}
   },
   methods: {
-    handleQuery() {
-      console.log('!!!', this.value)
+    handleQuery(value) {
+      console.log('!!!', value)
     }
   }
 }
@@ -66,11 +61,7 @@ export default {
     .search {
       display: inline-block;
       height: @border-height + @height;
-
-      .query-input {
-        width: 260px;
-        line-height: @border-height + @height;
-      }
+      line-height: @border-height + @height;
     }
   }
 }

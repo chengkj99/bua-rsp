@@ -1,22 +1,28 @@
 <template>
   <div class="product">
-    value: {{value}}
+    <div class="search-block">
+    </div>
+    <product-list :values="productList"></product-list>
   </div>
 </template>
 
 <script>
 import { getProductList } from '@/apis/product'
+import ProductList from './list'
 export default {
   name: 'product',
+  components: {
+    ProductList
+  },
   data() {
     return {
-      value: []
+      productList: []
     }
   },
   methods: {
     fetch(query = '') {
       getProductList(query).then(
-        res => this.value = res.data
+        data => this.productList = data
       )
     }
   },
@@ -30,5 +36,9 @@ export default {
 .product {
   position: relative;
   display: block;
+
+  .search-block {
+    margin: 20px 0;
+  }
 }
 </style>

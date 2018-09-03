@@ -16,8 +16,11 @@ export default {
 </script>
 
 <style lang='less' scoped>
+@import "./common";
+
 .app-content {
   position: relative;
   display: block;
+  .width();
 }
 </style>
