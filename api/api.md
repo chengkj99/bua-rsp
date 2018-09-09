@@ -44,7 +44,7 @@
       "contacts": "王宗义",
       "phone": "13651226099",
       "mail": "Wangzongyi001@sina.com",
-      "imgUrl": "empty url",
+      "img_url": "empty url",
       "owner": "Wangzongyi77",
       "status": "disable"
     },

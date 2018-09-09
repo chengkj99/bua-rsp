@@ -1,6 +1,14 @@
 <template>
   <div class="product">
     <div class="search-block">
+      <el-row :gutter="20">
+        <el-col :span="16">
+
+        </el-col>
+        <el-col :span="8">
+
+        </el-col>
+      </el-row>
     </div>
     <product-list :values="productList"></product-list>
   </div>

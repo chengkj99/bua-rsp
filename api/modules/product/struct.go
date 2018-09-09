@@ -11,7 +11,7 @@ type Product struct {
 	Contacts      string `json:"contacts"`
 	Phone         string `json:"phone"`
 	Mail          string `json:"mail"`
-	ImgUrl        string `json:"imgUrl"`
+	ImgUrl        string `json:"img_url"`
 	Owner         string `json:"owner"`
 	Status        string `json:"status"` // enable, disable
 }
