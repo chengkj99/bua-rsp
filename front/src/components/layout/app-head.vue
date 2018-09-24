@@ -1,6 +1,22 @@
 <template>
   <div class="app-head">
-    <div class="head-block">
+    <div class="head-link">
+      <template v-if="isSignIn">
+        <span>欢迎您</span>
+        <span>我的预约</span>
+        <span>进入后台</span>
+        <span>退出登录</span>
+      </template>
+      <template v-else>
+        <span>
+          <el-button type="text" class="signin-btn">您好，请登录</el-button>
+        </span>
+        <span>
+          <el-button type="text" class="register-btn">注册</el-button>
+        </span>
+      </template>
+    </div>
+    <div class="head-content">
       <div class="logo">
         <img src="@/assets/img/school.png">
       </div>
@@ -19,7 +35,9 @@ export default {
     SearchInput
   },
   data() {
-    return {}
+    return {
+      isSignIn: false
+    }
   },
   methods: {
     handleQuery(value) {
@@ -41,9 +59,34 @@ export default {
   display: block;
   width: 100%;
   border-bottom: @border-height solid @logo-color;
-  padding: 6px 0;
 
-  .head-block {
+  .head-link {
+    height: 20px;
+    line-height: 20px;
+    text-align: right;
+    background-color: #F9F9F9;
+    font-size: 12px;
+    border-bottom: 1px solid #E7E7E7;
+
+    > span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .signin-btn {
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+    }
+    .register-btn {
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+      color: #606266;
+    }
+  }
+
+  .head-content {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

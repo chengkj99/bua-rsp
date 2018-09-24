@@ -8,11 +8,27 @@ import (
 	"github.com/labstack/echo"
 )
 
+// 可根据 id 和 product_id  查询
 func GetList(c echo.Context) error {
 	engine := db.Engine
 	var bookings Bookings
 
-	engine.Sql("SELECT * FROM booking").Find(&bookings.Data)
+	var qeurySql string
+	id := c.FormValue("id")
+	pid := c.FormValue("pid")
+	qeurySql = "SELECT * FROM booking"
+
+	if id != "" && pid == "" {
+		qeurySql = qeurySql + " where id = " + id + ""
+	}
+	if pid != "" && id == "" {
+		qeurySql = qeurySql + " where product_id = " + pid + ""
+	}
+	if pid != "" && id != "" {
+		qeurySql = qeurySql + " where id = " + id + " and product_id = " + pid + ""
+	}
+
+	engine.Sql(qeurySql).Find(&bookings.Data)
 	res := common.Response{
 		bookings.Data,
 		http.StatusOK,
