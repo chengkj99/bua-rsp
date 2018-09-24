@@ -6,6 +6,8 @@ type Booking struct {
 	BookingMan string `json:"booking_man"`
 	StartTime  string `json:"start_time"` // 2018-6-27 10:20:56
 	EndTime    string `json:"end_time"`   // 2018-6-28 10:20:56
+	Reason     string `json:"reason"`
+	IsAgree    bool   `json:"is_agree"`
 }
 
 type Bookings struct {

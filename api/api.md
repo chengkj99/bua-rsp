@@ -280,6 +280,7 @@ requestBody
 | booking_man | ture | string | 预定人 |
 | start_time | ture | string | 开始时间 |
 | end_time | ture | string | 结束时间 |
+| reason | ture | string | 预约理由 |
 
 #### 请求示例
 
@@ -322,6 +323,8 @@ requestBody
 | booking_man | ture | string | 预定人 |
 | start_time | ture | string | 开始时间 |
 | end_time | ture | string | 结束时间 |
+| reason | ture | string | 预约理由 |
+| is_agree | ture | bool | 是否被同意 |
 
 #### 请求示例
 
@@ -376,3 +379,5 @@ requestBody
 | booking_man | string | 预定人 |
 | start_time | string | 开始时间 |
 | end_time | string | 结束时间 |
+| reason | string | 预约理由 |
+| is_agree | string | 是否被同意 |

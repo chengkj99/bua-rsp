@@ -1,6 +1,7 @@
 <template>
   <div class="app-content">
-    <router-view/>
+    <router-view class="home" name="home"></router-view>
+    <router-view class="main"></router-view>
   </div>
 </template>
 
@@ -21,6 +22,9 @@ export default {
 .app-content {
   position: relative;
   display: block;
-  .width();
+
+  .main {
+    .width();
+  }
 }
 </style>

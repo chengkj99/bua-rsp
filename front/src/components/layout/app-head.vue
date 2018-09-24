@@ -17,12 +17,33 @@
       </template>
     </div>
     <div class="head-content">
-      <div class="logo">
-        <img src="@/assets/img/school.png">
-      </div>
-      <div class="search">
+
+      <!-- <div class="search">
         <search-input size="medium" @query="handleQuery"></search-input>
-      </div>
+      </div> -->
+      <el-row :gutter="20">
+        <el-col :span="4">
+          <div class="logo">
+            <img src="@/assets/img/school.png">
+          </div>
+        </el-col>
+        <el-col :span="16">
+          <div class="menu-wrapper">
+            <el-menu
+              :default-active="activeIndex"
+              class="menu-block"
+              mode="horizontal"
+              @select="handleSelect"
+              background-color="#0F7042"
+              text-color="#fff"
+              active-text-color="#ffd04b">
+              <el-menu-item class="muen-item-block" index="1">产品列表</el-menu-item>
+              <el-menu-item class="muen-item-block" index="2">我的预约</el-menu-item>
+            </el-menu>
+          </div>
+        </el-col>
+        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -36,13 +57,15 @@ export default {
   },
   data() {
     return {
-      isSignIn: false
+      isSignIn: false,
+      activeIndex: '1'
     }
   },
   methods: {
     handleQuery(value) {
       console.log('!!!', value)
-    }
+    },
+    handleSelect() {}
   }
 }
 </script>
@@ -51,14 +74,15 @@ export default {
 @import "../../assets/style/index";
 @import "./common";
 
-@border-height: 3px;
-@height: 60px;
+@border-height: 1px;
+@height: 40px;
 
 .app-head {
   position: relative;
   display: block;
   width: 100%;
   border-bottom: @border-height solid @logo-color;
+  background: @logo-color;
 
   .head-link {
     height: 20px;
@@ -105,6 +129,23 @@ export default {
       display: inline-block;
       height: @border-height + @height;
       line-height: @border-height + @height;
+    }
+  }
+
+  .menu-wrapper {
+    position: relative;
+    display: block;
+    background: @logo-color;
+    .menu-block {
+      .width();
+
+      .muen-item-block {
+        height: 46px;
+        line-height: 46px;
+      }
+    }
+    .el-menu--horizontal {
+      border: none;
     }
   }
 }

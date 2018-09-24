@@ -1,3 +1,3 @@
 # bua-rsp
 
-[API文档](./api/api.md)
+[API 文档](./api/api.md)

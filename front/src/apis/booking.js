@@ -11,7 +11,8 @@ export function addBooking(value) {
     booking_man: value.bookingMan,
     product_id: value.productId,
     start_time: value.startTime,
-    end_time: value.endTime
+    end_time: value.endTime,
+    reason: value.reason
   })
 }
 

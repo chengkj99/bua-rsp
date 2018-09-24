@@ -1,7 +1,7 @@
 <template>
   <div class="product-list">
     <el-table
-      :data="values"
+      :data="currentValues"
       align="left"
       style="width: 100%">
       <el-table-column label="图片">
@@ -41,6 +41,16 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div class="page-wrapper">
+      <el-pagination
+        background
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="total"
+        :current-page.sync="currentPage">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -58,12 +68,23 @@ export default {
   data() {
     return {
       statusNameMap,
-      statusesStyle
+      statusesStyle,
+      currentPage: 1,
+      pageSize: 13
+    }
+  },
+  computed: {
+    total() {
+      return this.values && this.values.length
+    },
+    currentValues() {
+      let start = (this.currentPage - 1) * this.pageSize
+      return this.values.slice(start, start + this.pageSize)
     }
   },
   methods: {
     handleBooking(row) {
-      console.log('booking', row)
+      this.$emit('booking', row.id)
     }
   }
 }
@@ -73,5 +94,10 @@ export default {
 .product-list {
   position: relative;
   display: block;
+
+  .page-wrapper {
+    text-align: right;
+    padding: 10px 0;
+  }
 }
 </style>
