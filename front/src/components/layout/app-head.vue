@@ -1,6 +1,6 @@
 <template>
   <div class="app-head">
-    <div class="head-link">
+    <!-- <div class="head-link">
       <template v-if="isSignIn">
         <span>欢迎您</span>
         <span>我的预约</span>
@@ -15,35 +15,27 @@
           <el-button type="text" class="register-btn">注册</el-button>
         </span>
       </template>
-    </div>
+    </div> -->
     <div class="head-content">
-
-      <!-- <div class="search">
-        <search-input size="medium" @query="handleQuery"></search-input>
-      </div> -->
-      <el-row :gutter="20">
-        <el-col :span="4">
-          <div class="logo">
-            <img src="@/assets/img/school.png">
-          </div>
-        </el-col>
-        <el-col :span="16">
-          <div class="menu-wrapper">
-            <el-menu
-              :default-active="activeIndex"
-              class="menu-block"
-              mode="horizontal"
-              @select="handleSelect"
-              background-color="#0F7042"
-              text-color="#fff"
-              active-text-color="#ffd04b">
-              <el-menu-item class="muen-item-block" index="1">产品列表</el-menu-item>
-              <el-menu-item class="muen-item-block" index="2">我的预约</el-menu-item>
-            </el-menu>
-          </div>
-        </el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-      </el-row>
+      <div class="logo">
+        <span class="block" @click="handleLogoClick">
+          <img src="@/assets/img/school.png">
+        </span>
+        <span class="block logo-desc">
+          仪器共享服务中心
+        </span>
+      </div>
+      <div class="link">
+        <div class="search">
+          <search-input size="small" @query="handleQuery"></search-input>
+        </div>
+        <el-menu :default-active="activeIndex" mode="horizontal" router @select="handleSelect">
+          <el-menu-item index="/product">我的产品</el-menu-item>
+          <el-menu-item index="2">我的预约</el-menu-item>
+          <el-menu-item index="3">登录</el-menu-item>
+          <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">注册</a></el-menu-item>
+        </el-menu>
+      </div>
     </div>
   </div>
 </template>
@@ -63,9 +55,12 @@ export default {
   },
   methods: {
     handleQuery(value) {
-      console.log('!!!', value)
+      this.$router.push({ path: 'product', query: { query: value }})
     },
-    handleSelect() {}
+    handleSelect() {},
+    handleLogoClick() {
+      this.$router.push('/')
+    }
   }
 }
 </script>
@@ -75,14 +70,16 @@ export default {
 @import "./common";
 
 @border-height: 1px;
-@height: 40px;
+@height: 60px;
 
 .app-head {
-  position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 100;
   display: block;
   width: 100%;
-  border-bottom: @border-height solid @logo-color;
-  background: @logo-color;
+  border-bottom: @border-height solid #e6e6e6;
+  background: #ffffff;
 
   .head-link {
     height: 20px;
@@ -114,38 +111,46 @@ export default {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    height: @height;
     .width();
 
     .logo {
       display: inline-block;
-      height: @border-height + @height;
+      height: @height;
+
       img {
-        height: @height;
+        height: @height - 14px;
         width: auto;
+        vertical-align: middle;
       }
+
+      .logo-desc {
+        font-size: 12px;
+        color: @secondary-font;
+        vertical-align: top;
+        padding-left: 0;
+        padding-top: 2px;
+      }
+    }
+
+    .block {
+      font-size: 13px;
+      display: inline-block;
+      height: @height;;
+      line-height: @height;
+      padding-left: 10px;
     }
 
     .search {
       display: inline-block;
-      height: @border-height + @height;
-      line-height: @border-height + @height;
+      height: @height;
+      line-height: @height;
     }
-  }
 
-  .menu-wrapper {
-    position: relative;
-    display: block;
-    background: @logo-color;
-    .menu-block {
-      .width();
-
-      .muen-item-block {
-        height: 46px;
-        line-height: 46px;
-      }
-    }
-    .el-menu--horizontal {
-      border: none;
+    .link {
+      width: 70%;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 }

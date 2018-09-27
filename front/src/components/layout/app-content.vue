@@ -22,6 +22,7 @@ export default {
 .app-content {
   position: relative;
   display: block;
+  margin-top: 60px;
 
   .main {
     .width();

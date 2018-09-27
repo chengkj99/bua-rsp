@@ -79,7 +79,7 @@ export default {
     },
     currentValues() {
       let start = (this.currentPage - 1) * this.pageSize
-      return this.values.slice(start, start + this.pageSize)
+      return this.values ? this.values.slice(start, start + this.pageSize) : []
     }
   },
   methods: {

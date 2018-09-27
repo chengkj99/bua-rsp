@@ -1,25 +1,18 @@
 <template>
   <div class="product">
-    <div class="search-block">
-      <el-row :gutter="20">
-        <el-col :span="16"></el-col>
-        <el-col :span="8"></el-col>
-      </el-row>
-    </div>
     <product-list
       :values="productList"
       @booking="handleBooking">
     </product-list>
 
-  <el-dialog title="产品预约" width="50%" :visible.sync="bookingDialogVisible">
-    <booking-form
-      :pid="productId"
-      ref="bookingForm"
-      @cancel="handleCancelBooking"
-      @submit="submitBooking">
-    </booking-form>
-  </el-dialog>
-
+    <el-dialog title="产品预约" width="50%" :visible.sync="bookingDialogVisible">
+      <booking-form
+        :pid="productId"
+        ref="bookingForm"
+        @cancel="handleCancelBooking"
+        @submit="submitBooking">
+      </booking-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -28,11 +21,14 @@ import { getProductList } from '@/apis/product'
 import { addBooking } from '@/apis/booking'
 import BookingForm from './booking-form'
 import ProductList from './list'
+import SearchInput from '../common/search-input.vue'
 export default {
   name: 'product',
+  props: ['query'],
   components: {
     ProductList,
-    BookingForm
+    BookingForm,
+    SearchInput
   },
   data() {
     return {
@@ -66,7 +62,11 @@ export default {
     }
   },
   created() {
-    this.fetch()
+    this.$watch('query', value => {
+      value ? this.fetch(value) : this.fetch()
+    }, {
+      immediate: true
+    })
   }
 }
 </script>
@@ -78,6 +78,7 @@ export default {
 
   .search-block {
     margin: 20px 0;
+    text-align: right;
   }
 }
 </style>
