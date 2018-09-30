@@ -12,7 +12,7 @@ var Engine *xorm.Engine
 
 // CreatConn For Create mysql connection
 func CreatConn() {
-	engine, err := xorm.NewEngine("mysql", "root@/bua_rsp?charset=utf8")
+	engine, err := xorm.NewEngine("mysql", "root:123456@/bua_rsp?charset=utf8")
 	Engine = engine
 	if err != nil {
 		fmt.Println(err.Error())

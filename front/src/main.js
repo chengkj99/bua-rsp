@@ -16,6 +16,14 @@ Vue.use(ElementUI)
 Vue.use(Movue, mobx)
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  if (to.path === '/') {
+    next('/home')
+    return
+  }
+  next()
+})
+
 axios.interceptors.response.use(({ status, data: result }) => {
   if (result.code) {
     const { code, data } = result

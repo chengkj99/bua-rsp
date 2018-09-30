@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/index'
 import Product from '@/components/product'
+import UserBooking from '@/components/user/booking/index'
+import UserProduct from '@/components/user/product/index'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       components: {
         home: Home
@@ -19,6 +21,16 @@ export default new Router({
       name: 'product',
       component: Product,
       props: route => ({ query: route.query.query })
+    },
+    {
+      path: '/user-booking',
+      name: 'user-booking',
+      component: UserBooking
+    },
+    {
+      path: '/user-product',
+      name: 'user-product',
+      component: UserProduct
     }
   ]
 })

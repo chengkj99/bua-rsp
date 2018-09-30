@@ -29,11 +29,20 @@
         <div class="search">
           <search-input size="small" @query="handleQuery"></search-input>
         </div>
-        <el-menu :default-active="activeIndex" mode="horizontal" router @select="handleSelect">
-          <el-menu-item index="/product">我的产品</el-menu-item>
-          <el-menu-item index="2">我的预约</el-menu-item>
-          <el-menu-item index="3">登录</el-menu-item>
-          <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">注册</a></el-menu-item>
+        <el-menu
+          :default-active="activeIndex"
+          mode="horizontal"
+          :router="true"
+          :unique-opened="true">
+          <el-menu-item index="/home" class="home-block"></el-menu-item>
+          <el-menu-item index="/product">产品列表</el-menu-item>
+          <el-submenu index="/user">
+            <span slot="title">我的</span>
+            <el-menu-item index="user-booking">我的预约</el-menu-item>
+            <el-menu-item index="user-product">我的发布</el-menu-item>
+          </el-submenu>
+          <el-menu-item index="/3">登录</el-menu-item>
+          <el-menu-item index="/4"><a href="https://www.ele.me" target="_blank">注册</a></el-menu-item>
         </el-menu>
       </div>
     </div>
@@ -50,16 +59,23 @@ export default {
   data() {
     return {
       isSignIn: false,
-      activeIndex: '1'
+      activeIndex: '/home'
+    }
+  },
+  watch: {
+    $route: {
+      handler(to) {
+        this.activeIndex = to.path
+      },
+      immediate: true
     }
   },
   methods: {
     handleQuery(value) {
       this.$router.push({ path: 'product', query: { query: value }})
     },
-    handleSelect() {},
     handleLogoClick() {
-      this.$router.push('/')
+      this.$router.push('/home')
     }
   }
 }
@@ -145,12 +161,17 @@ export default {
       display: inline-block;
       height: @height;
       line-height: @height;
+      margin-right: 20px;
     }
 
     .link {
       width: 70%;
       display: flex;
       justify-content: flex-end;
+    }
+
+    .home-block {
+      display: none;
     }
   }
 }
