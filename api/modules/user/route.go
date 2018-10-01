@@ -20,4 +20,7 @@ func Route(rg *echo.Group) {
 
 	// 修改用户信息
 	rg.PUT("/:id", UpdateUser)
+
+	// 登录
+	rg.POST("/login", SignIn)
 }
