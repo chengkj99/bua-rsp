@@ -357,6 +357,7 @@ requestBody
 |返回字段|字段类型|说明 |
 |:----- |:------|:----------------------------- |
 | id | int | —— |
+| uid | int | 产品发布用户ID |
 | name | string | 产品名 |
 | original_price | string | 原值（万元） |
 | firm_model | string | 厂商型号 |

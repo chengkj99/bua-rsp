@@ -11,6 +11,8 @@ func Route(rg *echo.Group) {
 	rg.GET("/list", GetList)
 	// 根据 ID 获取产品
 	rg.GET("/list/:id", GetListByID)
+	// 根据 UID 查询产品
+	rg.GET("/list/user/:uid", GetListByUID)
 
 	// 新建产品
 	rg.POST("/add", Create)
@@ -23,4 +25,7 @@ func Route(rg *echo.Group) {
 
 	// 修改产品可用性状态 enable, disable
 	rg.PUT("/status/:id", UpdateStatus)
+
+	// 上传图片
+	rg.POST("/upload/:id", Upload)
 }

@@ -9,7 +9,7 @@ import (
 func Route(rg *echo.Group) {
 	// 获取用户列表
 	rg.GET("/list", GetUsers)
-	// // 根据 ID 获取用户信息
+	// 根据 ID 获取用户信息
 	rg.GET("/list/:id", GetUserByID)
 
 	// 创建用户

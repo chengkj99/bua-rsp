@@ -1,12 +1,22 @@
+// 我的发布-列表展示
 <template>
-  <div class="product-list">
-    <el-table
-      :data="currentValues"
-      align="left"
-      style="width: 100%">
+  <div class='user-product-list'>
+    <table-page :data="value">
       <el-table-column label="图片">
         <template slot-scope="scope">
-          {{ scope.row.img_url || '-' }}
+          <span v-if="scope.row.img_url != ''">{{ scope.row.img_url }}</span>
+          <span v-else>
+            <el-upload
+              :action="'/api/product/upload/' + scope.row.id"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handleRemove">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+          </span>
         </template>
       </el-table-column>
       <el-table-column label="名称">
@@ -35,64 +45,52 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleBooking(scope.row)">
-            预约
+            @click="edit(scope.row)">
+            编辑
           </el-button>
         </template>
       </el-table-column>
-    </el-table>
-
-    <div class="page-wrapper">
-      <el-pagination
-        background
-        :page-size="pageSize"
-        layout="prev, pager, next"
-        :total="total"
-        :current-page.sync="currentPage">
-      </el-pagination>
-    </div>
+    </table-page>
   </div>
 </template>
 
 <script>
+import TablePage from '@/components/common/table-page'
 import { statusNameMap, statusesStyle } from '@/constants/product'
 
 export default {
-  name: 'product-list',
-  props: ['values'],
+  name: 'user-product-list',
+  props: ['value'],
+  components: {
+    TablePage
+  },
   data() {
     return {
       statusNameMap,
       statusesStyle,
-      currentPage: 1,
-      pageSize: 13
-    }
-  },
-  computed: {
-    total() {
-      return this.values && this.values.length
-    },
-    currentValues() {
-      let start = (this.currentPage - 1) * this.pageSize
-      return this.values ? this.values.slice(start, start + this.pageSize) : []
+      dialogVisible: false,
+      dialogImageUrl: ''
     }
   },
   methods: {
-    handleBooking(row) {
-      this.$emit('booking', row.id)
+    edit(row) {
+      console.log('edit...')
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      console.log('file...', file)
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     }
-  }
+  },
 }
 </script>
 
 <style lang='less' scoped>
-.product-list {
+.user-product-list {
   position: relative;
   display: block;
-
-  .page-wrapper {
-    text-align: right;
-    padding: 10px 0;
-  }
 }
 </style>
