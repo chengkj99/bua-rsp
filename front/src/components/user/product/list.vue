@@ -1,22 +1,18 @@
 // 我的发布-列表展示
 <template>
   <div class='user-product-list'>
-    <table-page :data="value">
+    <table-page :data="localValue">
       <el-table-column label="图片">
         <template slot-scope="scope">
-          <span v-if="scope.row.img_url != ''">{{ scope.row.img_url }}</span>
-          <span v-else>
-            <el-upload
-              :action="'/api/product/upload/' + scope.row.id"
-              list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove">
-              <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
-          </span>
+          <el-upload
+            class="avatar-uploader"
+            :action="'/api/product/upload/' + scope.row.id"
+            :show-file-list="false"
+            :on-success="(res, file) => handleAvatarSuccess(res, file, scope.$index)"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="scope.row.img_url" :src="`${imgDomainName}/${scope.row.img_url}`" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </template>
       </el-table-column>
       <el-table-column label="名称">
@@ -58,6 +54,8 @@
 import TablePage from '@/components/common/table-page'
 import { statusNameMap, statusesStyle } from '@/constants/product'
 
+const imgDomainName = 'http://pg896kvfn.bkt.clouddn.com'
+
 export default {
   name: 'user-product-list',
   props: ['value'],
@@ -69,20 +67,39 @@ export default {
       statusNameMap,
       statusesStyle,
       dialogVisible: false,
-      dialogImageUrl: ''
+      dialogImageUrl: '',
+      imgDomainName,
+      localValue: []
     }
+  },
+  watch: {
+    value: {
+      handler(value) {
+        this.localValue = value.map(obj => ({ ...obj }))
+      }
+    },
+    immediuate: true,
+    deep: true
   },
   methods: {
     edit(row) {
       console.log('edit...')
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    handleAvatarSuccess(res, file, index) {
+      this.localValue[index].img_url = file.name
+      // this.imageUrl = URL.createObjectURL(file.raw);
     },
-    handlePictureCardPreview(file) {
-      console.log('file...', file)
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      // if (!isJPG) {
+      //   this.$message.error('上传头像图片只能是 JPG 格式!');
+      // }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
     }
   },
 }
@@ -92,5 +109,29 @@ export default {
 .user-product-list {
   position: relative;
   display: block;
+
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 136px;
+    height: 136px;
+    display: block;
+  }
 }
 </style>

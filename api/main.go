@@ -20,5 +20,4 @@ func main() {
 	user.Route(e.Group("/user"))
 
 	e.Logger.Fatal(e.Start(":1323"))
-
 }
