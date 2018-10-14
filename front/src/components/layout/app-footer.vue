@@ -1,30 +1,33 @@
 <template>
   <div class="app-footer">
-    <p>© 2018-2023 北京农学院 版权所有</p>
+    <p>© COPYRIGHT 20018-2023</p>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'app-footer',
-  data() {
-    return {}
-  },
-  methods: {
-  }
+  name: 'app-footer'
 }
 </script>
 
 <style lang='less' scoped>
+@import '../../assets/style/color.less';
 .app-footer {
-  position: absolute;
+  position: 'relative';
   display: block;
-  height: 200px;
-  bottom: 0;
-  background-color: #ccc;
+  background-color: #ffffff;
+  color: #ffffff;
   width: 100%;
+  margin-top: 100px;
+
   > p {
     text-align: center;
+    color: @secondary-font;
+    line-height: 68px;
+    height: 68px;
+    margin: 0;
+    border-top: 1px solid #ccc;
   }
 }
 </style>
