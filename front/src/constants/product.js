@@ -12,3 +12,18 @@ export const statusesStyle = {
   [statuses.enable]: 'success',
   [statuses.disable]: 'info'
 }
+
+export const bookingStatuses = {
+  agree: true,
+  notAgree: false
+}
+
+export const bookingStatusNameMap = {
+  [bookingStatuses.agree]: '已同意',
+  [bookingStatuses.notAgree]: '未同意'
+}
+
+export const bookingStatusStyle = {
+  [bookingStatuses.agree]: 'success',
+  [bookingStatuses.notAgree]: 'info'
+}

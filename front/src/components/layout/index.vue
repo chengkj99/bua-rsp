@@ -2,7 +2,7 @@
   <div class="container">
     <app-head></app-head>
     <app-content></app-content>
-    <app-footer :style=styleObject></app-footer>
+    <app-footer></app-footer>
   </div>
 </template>
 

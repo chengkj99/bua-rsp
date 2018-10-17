@@ -1,15 +1,18 @@
 <template>
   <div class='user-booking'>
-    value: {{ value }}
+    <booking-list :value="value"></booking-list>
   </div>
 </template>
 
 <script>
 import { getBookingList } from '@/apis/booking'
+import BookingList from './list'
 
 export default {
   nanm: 'user-booking',
-  props: [],
+  components: {
+    BookingList
+  },
   data() {
     return {
       value: []
