@@ -5,12 +5,18 @@
         <img src="./share.gif" alt="共享经济，向科研仪器迈进"/>
       </el-carousel-item>
     </el-carousel>
+
+    <product-show-list></product-show-list>
   </div>
 </template>
 
 <script>
+import ProductShowList from './list'
 export default {
   name: 'home',
+  components: {
+    ProductShowList
+  },
   data() {
     return {}
   },

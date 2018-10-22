@@ -52,9 +52,7 @@
 
 <script>
 import TablePage from '@/components/common/table-page'
-import { statusNameMap, statusesStyle } from '@/constants/product'
-
-const imgDomainName = 'http://pg896kvfn.bkt.clouddn.com'
+import { statusNameMap, statusesStyle, imgDomainName } from '@/constants/product'
 
 export default {
   name: 'user-product-list',

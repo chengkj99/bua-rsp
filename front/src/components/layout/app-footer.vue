@@ -19,7 +19,7 @@ export default {
   background-color: #ffffff;
   color: #ffffff;
   width: 100%;
-  margin-top: 100px;
+  // margin-top: 100px;
 
   > p {
     text-align: center;

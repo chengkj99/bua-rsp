@@ -27,3 +27,5 @@ export const bookingStatusStyle = {
   [bookingStatuses.agree]: 'success',
   [bookingStatuses.notAgree]: 'info'
 }
+
+export const imgDomainName = 'http://pg896kvfn.bkt.clouddn.com'
