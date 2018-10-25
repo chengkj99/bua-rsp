@@ -14,8 +14,6 @@
         </el-card>
      </template>
    </div>
-
-
   </div>
 </template>
 

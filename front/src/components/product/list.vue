@@ -6,7 +6,7 @@
       style="width: 100%">
       <el-table-column label="图片">
         <template slot-scope="scope">
-          {{ scope.row.img_url || '-' }}
+          <img class="img-block" :src="`${imgDomainName}/${scope.row.img_url}`" alt="仪器图片">
         </template>
       </el-table-column>
       <el-table-column label="名称">
@@ -55,8 +55,7 @@
 </template>
 
 <script>
-import { statusNameMap, statusesStyle } from '@/constants/product'
-
+import { statusNameMap, statusesStyle, imgDomainName } from '@/constants/product'
 export default {
   name: 'product-list',
   props: ['values'],
@@ -64,6 +63,7 @@ export default {
     return {
       statusNameMap,
       statusesStyle,
+      imgDomainName,
       currentPage: 1,
       pageSize: 13
     }
@@ -93,6 +93,10 @@ export default {
   .page-wrapper {
     text-align: right;
     padding: 10px 0;
+  }
+  .img-block {
+    width: 160px;
+    height: 160px;
   }
 }
 </style>
