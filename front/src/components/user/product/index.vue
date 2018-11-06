@@ -5,22 +5,24 @@
         size="small"
         type="primary"
         icon="el-icon-circle-plus-outline"
-        @click="addUserProduct" plain>
+        @click="openDialogOfAddUserProduct" plain>
         新增产品
       </el-button>
     </div>
-    <product-list :value="userProduct"></product-list>
+    <product-list :value="userProduct" @delete="handleDelete"></product-list>
 
     <el-dialog title="新增产品" :visible.sync="dialogFormVisible">
-      <product-form @submit="addUserProduct" @cancel="dialogFormVisible = false"></product-form>
+      <product-form @submit="handleSubmit" @cancel="dialogFormVisible = false"></product-form>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import { getUserProduct } from '@/apis/user'
+import { addProduct, deleteProduct } from '@/apis/product'
 import ProductList from './list'
 import ProductForm from './form'
+
 export default {
   name: 'user-product',
   components: {
@@ -30,7 +32,8 @@ export default {
   data() {
     return {
       userProduct: [],
-      dialogFormVisible: false
+      dialogFormVisible: false,
+      uid: 1
     }
   },
   methods: {
@@ -39,12 +42,36 @@ export default {
         data => this.userProduct = data
       )
     },
-    addUserProduct() {
+    openDialogOfAddUserProduct() {
       this.dialogFormVisible = true
+    },
+    handleSubmit(value) {
+      const _value = {...value, uid: this.uid}
+      addProduct(_value).then(
+        () => {
+          this.$message.success('添加成功')
+          this.dialogFormVisible = false
+          this.getUserProduct(this.uid)
+        },
+        () => {
+          this.$message.error('添加失败')
+        }
+      )
+    },
+    handleDelete(id) {
+      deleteProduct(id).then(
+        () => {
+          this.$message.success('删除成功')
+          this.getUserProduct(this.uid)
+        },
+        () => {
+          this.$message.error('删除失败')
+        }
+      )
     }
   },
   created() {
-    this.getUserProduct(1)
+    this.getUserProduct(this.uid)
   }
 }
 </script>

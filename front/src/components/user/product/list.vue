@@ -41,8 +41,10 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="edit(scope.row)">
-            编辑
+            type="danger"
+            plain
+            @click="handleDelete(scope.row)">
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -98,6 +100,15 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
+    },
+    handleDelete(row) {
+      this.$confirm('此操作将删除该产品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$emit('delete', row.id)
+      })
     }
   },
 }

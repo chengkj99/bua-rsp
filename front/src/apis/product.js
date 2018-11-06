@@ -13,6 +13,7 @@ export function getProductListById(id) {
 // 添加产品
 export function addProduct(value) {
   return axios.post(`/api/product/add`, {
+    uid: value.uid,
     name: value.name,
     original_price: value.originalPrice,
     firm_model: value.firmModel,
@@ -24,7 +25,7 @@ export function addProduct(value) {
     mail: value.mail,
     img_url: value.imgUrl,
     owner: value.owner,
-    status: value.status
+    status: value.status || 'enable'
   })
 }
 
@@ -35,5 +36,5 @@ export function updateProductStatus(id, status) {
 
 // 删除产品
 export function deleteProduct(id) {
-  return axios.post(`/api/product/${id}`)
+  return axios.delete(`/api/product/${id}`)
 }
