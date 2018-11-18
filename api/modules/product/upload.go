@@ -1,19 +1,20 @@
 package product
 
 import (
-	"github.com/labstack/echo"
 	"bua-rsp/api/modules/common"
-	"strconv"
-	"io/ioutil"
 	"bytes"
 	"fmt"
+	"io/ioutil"
+	"strconv"
+
+	"github.com/labstack/echo"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
 	"golang.org/x/net/context"
 )
 
 type UploadResponse struct {
-	Key string
+	Key  string
 	Hash string
 }
 
@@ -55,15 +56,15 @@ func Upload(c echo.Context) error {
 	formUploader := storage.NewFormUploader(&cfg)
 	ret := storage.PutRet{}
 	putExtra := storage.PutExtra{
-			Params: map[string]string{
-					"x:name": "github logo",
-			},
+		Params: map[string]string{
+			"x:name": "github logo",
+		},
 	}
 	dataLen := int64(len(localFile))
 	err = formUploader.Put(context.Background(), &ret, upToken, key, bytes.NewReader(localFile), dataLen, &putExtra)
 	if err != nil {
-			fmt.Println(err)
-			return err
+		fmt.Println(err)
+		return err
 	}
 	fmt.Println(ret.Key, ret.Hash)
 	// 同步修改产品 img_url 的信息
@@ -73,6 +74,5 @@ func Upload(c echo.Context) error {
 		return c.JSON(200, common.Response{Code: 50001, Message: "更新数据库错误", Data: affected})
 	}
 
-	return c.JSON(200, common.Response{Code: 200, Message: "ok", Data: UploadResponse{ ret.Key, ret.Hash }})
+	return c.JSON(200, common.Response{Code: 200, Message: "ok", Data: UploadResponse{ret.Key, ret.Hash}})
 }
-

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-head">
+  <div class="app-head" :style="rootElementStyle">
     <!-- <div class="head-link">
       <template v-if="isSignIn">
         <span>欢迎您</span>
@@ -17,15 +17,18 @@
       </template>
     </div> -->
     <div class="head-content">
+
       <div class="logo">
-        <span class="block" @click="handleLogoClick">
+        <span class="block logo-img" @click="handleLogoClick">
           <img src="@/assets/img/school.png">
         </span>
-        <span class="block logo-desc">
-          仪器共享服务中心
+        <span class="block logo-desc" :style="logoDescStyle">
+          {{subTitleText}}
         </span>
       </div>
-      <div class="link">
+      <!-- <head-logo :subTitle="subTitleText"></head-logo> -->
+
+      <div class="link" v-if="!isLogining">
         <div class="search">
           <search-input size="small" @query="handleQuery"></search-input>
         </div>
@@ -36,13 +39,19 @@
           :unique-opened="true">
           <el-menu-item index="/home" class="home-block"></el-menu-item>
           <el-menu-item index="/product">产品列表</el-menu-item>
-          <el-submenu index="/user">
-            <span slot="title">我的</span>
+          <el-submenu index="/user" class="user-info" v-if="userName">
+            <span slot="title">
+              <v-icon name="user"/>
+              <span class="name-title">{{userName}}</span>
+            </span>
             <el-menu-item index="user-booking">我的预约</el-menu-item>
             <el-menu-item index="user-product">我的发布</el-menu-item>
+            <el-menu-item index="/home" @click="signOut"> 退出 </el-menu-item>
           </el-submenu>
-          <el-menu-item index="/3">登录</el-menu-item>
-          <el-menu-item index="/4"><a href="https://www.ele.me" target="_blank">注册</a></el-menu-item>
+          <template v-if="!userName">
+            <el-menu-item index="/login">登录</el-menu-item>
+            <el-menu-item index="/4"><a href="https://www.ele.me" target="_blank">注册</a></el-menu-item>
+          </template>
         </el-menu>
       </div>
     </div>
@@ -51,10 +60,14 @@
 
 <script>
 import SearchInput from '../common/search-input.vue'
+import HeadLogo from './head-logo.vue'
+import userStore from '@/stores/user'
+import { delCookie } from '@/utils/cookies'
 export default {
   name: 'app-head',
   components: {
-    SearchInput
+    SearchInput,
+    HeadLogo
   },
   data() {
     return {
@@ -70,13 +83,39 @@ export default {
       immediate: true
     }
   },
+  fromMobx: {
+    userName() {
+      return userStore.name
+    }
+  },
+  computed: {
+    isLogining() {
+      return this.activeIndex.search('login') !== -1
+    },
+    subTitleText() {
+      return this.isLogining ? '欢迎登录大型仪器共享平台' : '大型仪器共享平台'
+    },
+    rootElementStyle() {
+      return this.isLogining ? { height: '90px' } : { height: '60px' }
+    },
+    logoDescStyle() {
+      return this.isLogining ? { fontSize: '18px' } : { height: '13px' }
+    }
+  },
   methods: {
     handleQuery(value) {
       this.$router.push({ path: 'product', query: { query: value }})
     },
     handleLogoClick() {
       this.$router.push('/home')
+    },
+    signOut() {
+      delCookie('uid')
+      window.location.href = '/'
     }
+  },
+  beforeCreate() {
+    userStore.fetch()
   }
 }
 </script>
@@ -127,34 +166,39 @@ export default {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    height: @height;
+    height: inherit;
     .width();
 
     .logo {
       display: inline-block;
-      height: @height;
+      height: inherit;
 
-      img {
-        height: @height - 14px;
-        width: auto;
-        vertical-align: middle;
+      .logo-img {
+        transform: scale(0.8, 0.8);
+
+        img {
+          height: inherit;
+          width: auto;
+          vertical-align: middle;
+        }
       }
 
       .logo-desc {
-        font-size: 12px;
+        font-size: 13px;
         color: @secondary-font;
-        vertical-align: top;
         padding-left: 0;
         padding-top: 2px;
+        height: inherit;
+        line-height: inherit;
       }
     }
 
     .block {
       font-size: 13px;
       display: inline-block;
-      height: @height;;
-      line-height: @height;
-      padding-left: 10px;
+      height: inherit;;
+      line-height: inherit;
+      margin-left: -16px;
     }
 
     .search {
@@ -165,13 +209,17 @@ export default {
     }
 
     .link {
-      width: 70%;
+      width: 66%;
       display: flex;
       justify-content: flex-end;
     }
 
     .home-block {
       display: none;
+    }
+    .user-info .name-title {
+      display: inline-block;
+      margin: 0 5px;
     }
   }
 }

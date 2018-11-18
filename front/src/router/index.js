@@ -4,6 +4,7 @@ import Home from '@/components/home/index'
 import Product from '@/components/product'
 import UserBooking from '@/components/user/booking/index'
 import UserProduct from '@/components/user/product/index'
+import UserLogin from '@/components/user/login'
 
 Vue.use(Router)
 
@@ -31,6 +32,13 @@ export default new Router({
       path: '/user-product',
       name: 'user-product',
       component: UserProduct
+    },
+    {
+      path: '/login',
+      name: 'user-login',
+      components: {
+        login: UserLogin
+      }
     }
   ]
 })

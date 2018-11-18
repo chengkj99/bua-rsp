@@ -11,6 +11,8 @@ func Route(rg *echo.Group) {
 	rg.GET("/list", GetUsers)
 	// 根据 ID 获取用户信息
 	rg.GET("/list/:id", GetUserByID)
+	// 根据 ID 获取用户信息
+	rg.GET("/overview", GetUserByCookie)
 
 	// 创建用户
 	rg.POST("/add", Create)
@@ -23,4 +25,7 @@ func Route(rg *echo.Group) {
 
 	// 登录
 	rg.POST("/login", SignIn)
+
+	// 登出
+	// rg.POST("/signout", SignOut)
 }

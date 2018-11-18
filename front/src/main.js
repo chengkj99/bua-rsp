@@ -5,13 +5,14 @@ import App from './App'
 import router from './router'
 import Movue from 'movue'
 import * as mobx from 'mobx'
-
 import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import '../static/element-#0F7042/index.css'
-
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon.vue'
 import axios from 'axios'
 
+Vue.component('v-icon', Icon)
 Vue.use(ElementUI)
 Vue.use(Movue, mobx)
 Vue.config.productionTip = false

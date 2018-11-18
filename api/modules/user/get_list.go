@@ -8,6 +8,7 @@ import (
 
 	"github.com/labstack/echo"
 )
+
 func GetUsers(c echo.Context) error {
 	engine := db.Engine
 	var users Users
@@ -27,6 +28,21 @@ func GetUserByID(c echo.Context) error {
 	engine := db.Engine
 	id, _ := strconv.Atoi(c.Param("id"))
 	user := &User{Id: int64(id)}
+	has, err := engine.Get(user)
+	common.CheckErr(err)
+	if has {
+		return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: user})
+	}
+	return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: nil})
+}
+
+// GetUserByCookie 根据 cookie 查询
+func GetUserByCookie(c echo.Context) error {
+	engine := db.Engine
+	cookie, err := c.Cookie("uid")
+	uid, err := strconv.ParseInt(cookie.Value, 10, 64)
+	common.CheckErr(err)
+	user := &User{Id: uid}
 	has, err := engine.Get(user)
 	common.CheckErr(err)
 	if has {

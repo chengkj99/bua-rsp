@@ -8,8 +8,7 @@
             class="avatar-uploader"
             :action="'/api/product/upload/' + scope.row.id"
             :show-file-list="false"
-            :on-success="(res, file) => handleAvatarSuccess(res, file, scope.$index)"
-            :before-upload="beforeAvatarUpload">
+            :on-success="(res, file) => handleAvatarSuccess(res, file, scope.$index)">
             <img v-if="scope.row.img_url" :src="`${imgDomainName}/${scope.row.img_url}`" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -89,18 +88,18 @@ export default {
       this.localValue[index].img_url = file.name
       // this.imageUrl = URL.createObjectURL(file.raw);
     },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
+    // beforeAvatarUpload(file) {
+    //   const isJPG = file.type === 'image/jpeg';
+    //   const isLt2M = file.size / 1024 / 1024 < 2;
 
-      // if (!isJPG) {
-      //   this.$message.error('上传头像图片只能是 JPG 格式!');
-      // }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
+    //   // if (!isJPG) {
+    //   //   this.$message.error('上传头像图片只能是 JPG 格式!');
+    //   // }
+    //   if (!isLt2M) {
+    //     this.$message.error('上传头像图片大小不能超过 2MB!');
+    //   }
+    //   return isJPG && isLt2M;
+    // },
     handleDelete(row) {
       this.$confirm('此操作将删除该产品, 是否继续?', '提示', {
         confirmButtonText: '确定',

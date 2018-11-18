@@ -28,4 +28,4 @@ export const bookingStatusStyle = {
   [bookingStatuses.notAgree]: 'info'
 }
 
-export const imgDomainName = 'http://pg896kvfn.bkt.clouddn.com'
+export const imgDomainName = 'http://phvpk2lt7.bkt.clouddn.com'

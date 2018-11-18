@@ -2,6 +2,7 @@
   <div class="app-content">
     <router-view class="home" name="home"></router-view>
     <router-view class="main"></router-view>
+    <router-view class="login-wrapper" name="login"></router-view>
   </div>
 </template>
 
@@ -26,6 +27,9 @@ export default {
 
   .main {
     .width();
+  }
+  .login-wrapper {
+    background: #f0f4f3;
   }
 }
 </style>
