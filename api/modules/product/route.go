@@ -11,8 +11,9 @@ func Route(rg *echo.Group) {
 	rg.GET("/list", GetList)
 	// 根据 ID 获取产品
 	rg.GET("/list/:id", GetListByID)
-	// 根据 UID 查询产品
-	rg.GET("/list/user/:uid", GetListByUID)
+
+	// 根据 publisherId 查询产品
+	rg.GET("/list/publisher/:id", GetListByPublisherID)
 
 	// 新建产品
 	rg.POST("/add", Create)

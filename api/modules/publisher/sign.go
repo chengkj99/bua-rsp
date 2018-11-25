@@ -1,8 +1,9 @@
-package user
+package publisher
 
 import (
 	"bua-rsp/api/db"
 	"bua-rsp/api/modules/common"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -19,27 +20,30 @@ func writeCookie(c echo.Context) error {
 	return c.String(http.StatusOK, "write a cookie")
 }
 
-// SignIn 登录
+// 登录 login
 func SignIn(c echo.Context) error {
-	var user User
-	var databaseUser User
+	var publisher Publisher
+	var databasePublisher Publisher
 
-	c.Bind(&user)
+	c.Bind(&publisher)
 	engine := db.Engine
-	engine.Where("name = ?", user.Name).Get(&databaseUser)
+	engine.Where("name = ?", publisher.Name).Get(&databasePublisher)
 
-	if user.Name == "" || user.Password == "" {
+	fmt.Println("publisher&&&", publisher)
+	fmt.Println("databasePublisher&&&", databasePublisher)
+
+	if publisher.Name == "" || publisher.Password == "" {
 		return c.JSON(http.StatusOK, common.Response{Code: 403, Message: "登录失败", Data: nil})
 	}
 
-	if user.Password != databaseUser.Password {
+	if publisher.Password != databasePublisher.Password {
 		return c.JSON(403, common.Response{Code: 403, Message: "密码不正确", Data: nil})
 	}
 
-	cookieForUID := common.GetCookie("uid", strconv.FormatInt(databaseUser.Id, 10))
-	cookieForUtype := common.GetCookie("utype", "user")
+	cookieForUID := common.GetCookie("uid", strconv.FormatInt(databasePublisher.Id, 10))
+	cookieForUtype := common.GetCookie("utype", "publisher")
 	c.SetCookie(cookieForUID)
 	c.SetCookie(cookieForUtype)
 
-	return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: databaseUser})
+	return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: databasePublisher})
 }

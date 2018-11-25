@@ -9,8 +9,11 @@ import (
 func Route(rg *echo.Group) {
 	// 获取预约列表 /list？id=1&pid=2
 	rg.GET("/list", GetList)
+	rg.GET("/list/user/:uid", GetListByUID)
+	rg.GET("/list/publisher/:uid", GetListByPublisherID)
 	// 新增预约
 	rg.POST("/add", Create)
-	// 更新预约信息
+
+	// 更新预约信息 & 审核预约
 	rg.PUT("/:id", Update)
 }

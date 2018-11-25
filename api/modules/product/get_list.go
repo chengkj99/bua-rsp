@@ -46,12 +46,12 @@ func GetListByID(c echo.Context) error {
 	return c.JSON(http.StatusOK, common.Response{Code: 200, Message: "ok", Data: nil})
 }
 
-// GetListByUID 根据 产品 ID 查询
-func GetListByUID(c echo.Context) error {
+// GetListByUID 根据 发布者 ID 查询
+func GetListByPublisherID(c echo.Context) error {
 	engine := db.Engine
 	var products Products
-	uid, _ := strconv.Atoi(c.Param("uid"))
-	engine.Sql("SELECT * FROM product WHERE uid = ?", uid).Find(&products.Data)
+	publisherId, _ := strconv.Atoi(c.Param("id"))
+	engine.Sql("SELECT * FROM product WHERE publisher_id = ?", publisherId).Find(&products.Data)
 	res := common.Response{
 		Code:    http.StatusOK,
 		Message: http.StatusText(http.StatusOK),
