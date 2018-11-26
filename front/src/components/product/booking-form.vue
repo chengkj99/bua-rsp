@@ -1,9 +1,6 @@
 <template>
   <div class="booking-form">
     <el-form ref="form" :model="form" :rules="rules" label-width="80px" size="small">
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model.trim="form.name" placeholder="请输入姓名"></el-input>
-      </el-form-item>
       <el-form-item label="时间" prop="times">
         <el-date-picker
           v-model="form.times"
@@ -34,13 +31,11 @@ const initialForm = {
   reason: ''
 }
 const initialRules = {
-  name: [{ required: true, message: '请输入姓名' }],
   times: [{ required: true, message: '请输入预约时间段' }],
   reason: [{ required: true, message: '请输入备注信息' }]
 }
 export default {
   name: 'booking-form',
-  props: ['pid'],
   data() {
     return {
       form: { ...initialForm },
@@ -52,8 +47,6 @@ export default {
       let { name, reason, times } = this.form
       let [startTime, endTime] = times
       return {
-        productId: this.pid,
-        bookingMan: name,
         reason,
         startTime,
         endTime

@@ -4,7 +4,7 @@ export const statuses = {
 }
 
 export const statusNameMap = {
-  [statuses.enable]: '可用',
+  [statuses.enable]: '运行正常',
   [statuses.disable]: '不可用'
 }
 

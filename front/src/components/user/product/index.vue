@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getUserProduct } from '@/apis/user'
+import { getPublisherProduct } from '@/apis/user'
 import { addProduct, deleteProduct } from '@/apis/product'
 import ProductList from './list'
 import ProductForm from './form'
@@ -37,8 +37,8 @@ export default {
     }
   },
   methods: {
-    getUserProduct(uid) {
-      getUserProduct(uid).then(
+    getPublisherProduct(uid) {
+      getPublisherProduct(uid).then(
         data => this.userProduct = data
       )
     },
@@ -51,7 +51,7 @@ export default {
         () => {
           this.$message.success('添加成功')
           this.dialogFormVisible = false
-          this.getUserProduct(this.uid)
+          this.getPublisherProduct(this.uid)
         },
         () => {
           this.$message.error('添加失败')
@@ -62,7 +62,7 @@ export default {
       deleteProduct(id).then(
         () => {
           this.$message.success('删除成功')
-          this.getUserProduct(this.uid)
+          this.getPublisherProduct(this.uid)
         },
         () => {
           this.$message.error('删除失败')
@@ -71,7 +71,7 @@ export default {
     }
   },
   created() {
-    this.getUserProduct(this.uid)
+    this.getPublisherProduct(this.uid)
   }
 }
 </script>

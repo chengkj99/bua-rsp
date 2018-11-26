@@ -13,7 +13,7 @@ export function getProductListById(id) {
 // 添加产品
 export function addProduct(value) {
   return axios.post(`/api/product/add`, {
-    uid: value.uid,
+    pbulisher_id: value.uid,
     name: value.name,
     original_price: value.originalPrice,
     firm_model: value.firmModel,

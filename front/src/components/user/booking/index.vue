@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import { getBookingList } from '@/apis/booking'
+import { getUserBookingList } from '@/apis/booking'
 import BookingList from './list'
-
+import userStore from '@/stores/user'
 export default {
   nanm: 'user-booking',
   components: {
@@ -18,10 +18,23 @@ export default {
       value: []
     }
   },
-  methods: {},
-  created() {
-    getBookingList().then(
-      data => this.value = data
+  fromMobx: {
+    uid() {
+      return userStore.uid
+    }
+  },
+  methods: {
+    fetch(uid) {
+      getUserBookingList(uid).then(
+        data => this.value = data
+      )
+    }
+  },
+  mounted() {
+    this.$watch(
+      'uid',
+      value => (value && this.fetch(value)),
+      { immediate: true }
     )
   }
 }

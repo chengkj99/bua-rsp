@@ -35,7 +35,13 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleBooking(scope.row)">
+            @click="handleViewDetails(scope.row)">
+            详情
+          </el-button>
+          <el-button
+            size="mini"
+            @click="handleBooking(scope.row)"
+            v-if="utype === userTypes.user">
             预约
           </el-button>
         </template>
@@ -56,14 +62,16 @@
 
 <script>
 import { statusNameMap, statusesStyle, imgDomainName } from '@/constants/product'
+import { userTypes } from '@/constants/user'
 export default {
   name: 'product-list',
-  props: ['values'],
+  props: ['values', 'utype'],
   data() {
     return {
       statusNameMap,
       statusesStyle,
       imgDomainName,
+      userTypes,
       currentPage: 1,
       pageSize: 13
     }
@@ -79,7 +87,10 @@ export default {
   },
   methods: {
     handleBooking(row) {
-      this.$emit('booking', row.id)
+      this.$emit('booking', row.id, row.pbulisher_id)
+    },
+    handleViewDetails(row) {
+      this.$emit('view-details', row)
     }
   }
 }

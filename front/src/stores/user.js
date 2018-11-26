@@ -12,13 +12,18 @@ export class UserStore {
   }
 
   @observable name = null
+  @observable userType = null
+  @observable uid = null
 
   @action updateUser(user) {
     if (!user) {
       this.name = null
-      return
+      this.userType = null
+      this.uid = null
     }
     this.name = user.name
+    this.userType = user.type
+    this.uid = user.id
   }
 
   fetch() {

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/home/index'
 import Product from '@/components/product'
 import UserBooking from '@/components/user/booking/index'
+import UserAudit from '@/components/user/audit/index'
 import UserProduct from '@/components/user/product/index'
 import UserLogin from '@/components/user/login'
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/user-booking',
       name: 'user-booking',
       component: UserBooking
+    },
+    {
+      path: '/user-audit',
+      name: 'user-audit',
+      component: UserAudit
     },
     {
       path: '/user-product',

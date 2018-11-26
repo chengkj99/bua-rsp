@@ -37,20 +37,28 @@
           mode="horizontal"
           :router="true"
           :unique-opened="true">
-          <el-menu-item index="/home" class="home-block"></el-menu-item>
-          <el-menu-item index="/product">产品列表</el-menu-item>
+          <el-menu-item index="home" class="home-block"></el-menu-item>
+          <el-menu-item index="product">产品列表</el-menu-item>
           <el-submenu index="/user" class="user-info" v-if="userName">
             <span slot="title">
-              <v-icon name="user"/>
+              <v-icon name="user" />
               <span class="name-title">{{userName}}</span>
             </span>
-            <el-menu-item index="user-booking">我的预约</el-menu-item>
-            <el-menu-item index="user-product">我的发布</el-menu-item>
-            <el-menu-item index="/home" @click="signOut"> 退出 </el-menu-item>
+            <el-menu-item index="user-booking" v-if="userType === userTypes.user">我的预约</el-menu-item>
+            <el-menu-item index="user-product" v-if="userType === userTypes.admin">我的发布</el-menu-item>
+            <el-menu-item index="user-audit" v-if="userType === userTypes.admin">我的审核</el-menu-item>
+            <el-menu-item index="home" @click="signOut"> 退出 </el-menu-item>
           </el-submenu>
           <template v-if="!userName">
-            <el-menu-item index="/login">登录</el-menu-item>
-            <el-menu-item index="/4"><a href="https://www.ele.me" target="_blank">注册</a></el-menu-item>
+            <el-submenu index="login">
+              <span slot="title">
+                <v-icon name="user" />
+                <span class="name-title">登录</span>
+              </span>
+              <el-menu-item index="login?type=user">用户登录</el-menu-item>
+              <el-menu-item index="login?type=publisher">管理员登录</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="/4">注册</el-menu-item>
           </template>
         </el-menu>
       </div>
@@ -59,26 +67,28 @@
 </template>
 
 <script>
-import SearchInput from '../common/search-input.vue'
-import HeadLogo from './head-logo.vue'
-import userStore from '@/stores/user'
-import { delCookie } from '@/utils/cookies'
+import SearchInput from "../common/search-input.vue"
+import HeadLogo from "./head-logo.vue"
+import userStore from "@/stores/user"
+import { delCookie } from "@/utils/cookies"
+import { userTypes } from "@/constants/user"
 export default {
-  name: 'app-head',
+  name: "app-head",
   components: {
     SearchInput,
     HeadLogo
   },
   data() {
     return {
+      userTypes,
       isSignIn: false,
-      activeIndex: '/home'
-    }
+      activeIndex: "/home"
+    };
   },
   watch: {
     $route: {
       handler(to) {
-        this.activeIndex = to.path
+        this.activeIndex = to.path;
       },
       immediate: true
     }
@@ -86,38 +96,42 @@ export default {
   fromMobx: {
     userName() {
       return userStore.name
+    },
+    userType() {
+      return userStore.userType
     }
   },
   computed: {
     isLogining() {
-      return this.activeIndex.search('login') !== -1
+      return this.activeIndex.search("login") !== -1;
     },
     subTitleText() {
-      return this.isLogining ? '欢迎登录大型仪器共享平台' : '大型仪器共享平台'
+      return this.isLogining ? "欢迎登录大型仪器共享平台" : "大型仪器共享平台";
     },
     rootElementStyle() {
-      return this.isLogining ? { height: '90px' } : { height: '60px' }
+      return this.isLogining ? { height: "90px" } : { height: "60px" };
     },
     logoDescStyle() {
-      return this.isLogining ? { fontSize: '18px' } : { height: '13px' }
+      return this.isLogining ? { fontSize: "18px" } : { height: "13px" };
     }
   },
   methods: {
     handleQuery(value) {
-      this.$router.push({ path: 'product', query: { query: value }})
+      this.$router.push({ path: "product", query: { query: value } });
     },
     handleLogoClick() {
-      this.$router.push('/home')
+      this.$router.push("/home");
     },
     signOut() {
-      delCookie('uid')
-      window.location.href = '/'
+      delCookie("uid")
+      delCookie("utype")
+      window.location.href = "/";
     }
   },
   beforeCreate() {
-    userStore.fetch()
+    userStore.fetch();
   }
-}
+};
 </script>
 
 <style lang='less' scoped>
@@ -140,9 +154,9 @@ export default {
     height: 20px;
     line-height: 20px;
     text-align: right;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
     font-size: 12px;
-    border-bottom: 1px solid #E7E7E7;
+    border-bottom: 1px solid #e7e7e7;
 
     > span {
       display: inline-block;
@@ -196,7 +210,7 @@ export default {
     .block {
       font-size: 13px;
       display: inline-block;
-      height: inherit;;
+      height: inherit;
       line-height: inherit;
       margin-left: -16px;
     }

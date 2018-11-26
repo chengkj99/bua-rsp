@@ -2,7 +2,9 @@
   <div class="product">
     <product-list
       :values="productList"
-      @booking="handleBooking">
+      :utype="utype"
+      @booking="handleBooking"
+      @view-details="handleViewDetails">
     </product-list>
 
     <el-dialog title="产品预约" width="50%" :visible.sync="bookingDialogVisible">
@@ -13,29 +15,50 @@
         @submit="submitBooking">
       </booking-form>
     </el-dialog>
+    <el-dialog title="产品详情" width="60%" :visible.sync="viewDetailsDialogVisible">
+      <product-details :value="details"></product-details>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getProductList } from '@/apis/product'
 import { addBooking } from '@/apis/booking'
+import SearchInput from '../common/search-input'
 import BookingForm from './booking-form'
 import ProductList from './list'
-import SearchInput from '../common/search-input.vue'
+import ProductDetails from './details'
+import userStore from '@/stores/user'
+
 export default {
   name: 'product',
   props: ['query'],
   components: {
     ProductList,
     BookingForm,
-    SearchInput
+    SearchInput,
+    ProductDetails
   },
   data() {
     return {
       productList: [],
       bookingDialogVisible: false,
-      productId: -1
+      productId: -1,
+      publisherId: -1,
+      details: {},
+      viewDetailsDialogVisible: false
     }
+  },
+  fromMobx: {
+    uid() {
+      return userStore.uid
+    },
+    username() {
+      return userStore.name
+    },
+    utype() {
+      return userStore.userType
+    },
   },
   methods: {
     fetch(query = '') {
@@ -43,22 +66,34 @@ export default {
         data => this.productList = data
       )
     },
-    handleBooking(pid) {
-      this.productId = pid
+    handleBooking(productId, publisherId) {
+      this.productId = productId
+      this.publisherId = publisherId
       this.bookingDialogVisible = true
     },
     submitBooking(value) {
-      addBooking(value).then(
+      const localValue = {
+        ...value,
+        uid: this.uid,
+        username: this.username,
+        productId: this.productId,
+        publisherId: this.publisherId
+      }
+      addBooking(localValue).then(
         () => {
-          this.$message.success('添加成功')
+          this.$message.success('预约成功')
           this.handleCancelBooking()
         },
-        () => { this.$message.error('添加失败') }
+        () => { this.$message.error('预约失败') }
       )
     },
     handleCancelBooking() {
       this.$refs.bookingForm.$refs.form.resetFields()
       this.bookingDialogVisible = false
+    },
+    handleViewDetails(row) {
+      this.viewDetailsDialogVisible = true
+      this.details = { ...row }
     }
   },
   created() {
