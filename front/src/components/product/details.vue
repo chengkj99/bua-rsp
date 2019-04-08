@@ -35,21 +35,29 @@
           {{ statusNameMap[value.status] }}
         </el-tag>
       </el-form-item>
+      <el-form-item label="计费规则">
+        <price-tag :priceType="value.price_type" :priceValue="value.price_value"></price-tag>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
 import { statusNameMap, statusesStyle, imgDomainName} from '@/constants/product'
-
+import { priceTypeNameMap } from '@/constants/product'
+import priceTag from '../common/price-tag'
 export default {
   name: 'product-details',
   props: ['value'],
+  components: {
+    priceTag
+  },
   data() {
     return {
       statusNameMap,
       statusesStyle,
-      imgDomainName
+      imgDomainName,
+      priceTypeNameMap
     }
   }
 }

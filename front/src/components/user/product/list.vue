@@ -36,7 +36,15 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="计费">
+        <template slot-scope="scope">
+          <price-tag
+            :priceType="scope.row.price_type"
+            :priceValue="scope.row.price_value">
+          </price-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="180">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -44,6 +52,13 @@
             plain
             @click="handleDelete(scope.row)">
             删除
+          </el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="setPrice(scope.row)">
+            计费设置
           </el-button>
         </template>
       </el-table-column>
@@ -53,16 +68,21 @@
 
 <script>
 import TablePage from '@/components/common/table-page'
+import PriceTag from '@/components/common/price-tag'
 import { statusNameMap, statusesStyle, imgDomainName } from '@/constants/product'
+import { priceTypes, priceTypeNameMap } from "@/constants/product"
 
 export default {
   name: 'user-product-list',
   props: ['value'],
   components: {
-    TablePage
+    TablePage,
+    PriceTag
   },
   data() {
     return {
+      priceTypes,
+      priceTypeNameMap,
       statusNameMap,
       statusesStyle,
       dialogVisible: false,
@@ -108,6 +128,10 @@ export default {
       }).then(() => {
         this.$emit('delete', row.id)
       })
+    },
+    setPrice(row) {
+      console.log('&&&', row)
+      this.$emit('set-price', row)
     }
   },
 }

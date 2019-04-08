@@ -5,7 +5,8 @@ import Product from '@/components/product'
 import UserBooking from '@/components/user/booking/index'
 import UserAudit from '@/components/user/audit/index'
 import UserProduct from '@/components/user/product/index'
-import UserLogin from '@/components/user/login'
+import UserLogin from '@/components/user/login/index'
+import UserRegister from '@/components/user/register/index'
 
 Vue.use(Router)
 
@@ -45,6 +46,14 @@ export default new Router({
       components: {
         login: UserLogin
       }
+    },
+    {
+      path: '/register',
+      name: 'user-register',
+      components: {
+        login: UserRegister
+      }
+      // component: UserRegister
     }
   ]
 })

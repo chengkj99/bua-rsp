@@ -28,4 +28,23 @@ export const bookingStatusStyle = {
   [bookingStatuses.notAgree]: 'info'
 }
 
-export const imgDomainName = 'http://phvpk2lt7.bkt.clouddn.com'
+export const priceTypes = {
+  byDay: 'day',
+  byHour: 'hour',
+  byTimes: 'times'
+}
+export const priceTypeNameMap = {
+  [priceTypes.byDay]: '天',
+  [priceTypes.byHour]: '时',
+  [priceTypes.byTimes]: '次'
+}
+
+export const priceStyle = {
+  [priceTypes.byDay]: 'warning',
+  [priceTypes.byHour]: 'danger',
+  [priceTypes.byTimes]: 'success'
+}
+
+// export const imgDomainName = "http://phvpk2lt7.bkt.clouddn.com"
+export const imgDomainName =
+  'http://ckj-bucket.oss-cn-beijing.aliyuncs.com/bua-rsp'

@@ -2,6 +2,11 @@
   <!--用户预约列表-->
   <div class='user-booking-list'>
     <table-page :data="value">
+      <el-table-column label="产品名称">
+        <template slot-scope="scope">
+           {{ scope.row.product_name }}
+        </template>
+      </el-table-column>
       <el-table-column label="预约开始时间">
         <template slot-scope="scope">
            {{ scope.row.start_time }}

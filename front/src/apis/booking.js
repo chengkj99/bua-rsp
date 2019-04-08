@@ -20,7 +20,8 @@ export function addBooking(value) {
     start_time: value.startTime,
     end_time: value.endTime,
     reason: value.reason,
-    status: 'notDo'
+    status: 'notDo',
+    product_name: value.productName
   })
 }
 

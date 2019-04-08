@@ -13,13 +13,16 @@ module.exports = {
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
     'plugin:vue/essential',
     // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-    'standard'
+    'standard',
+    // "prettier" // eslint-config-prettier 2
+    // "plugin:prettier/recommended" // eslint-plugin-prettier eslint-config-prettier 3
   ],
   // required to lint *.vue files
   plugins: [
     "html",
     "standard",
-    "promise"
+    "promise",
+    // "prettier" 1
   ],
   // add your custom rules here
   rules: {
@@ -41,7 +44,8 @@ module.exports = {
     "no-extend-native": 0,
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "array-bracket-spacing": ["error", "never"],
-    "object-curly-spacing": ["error", "always"]
+    "object-curly-spacing": ["error", "always"],
+    // "prettier/prettier": "error" 1
   },
   "overrides": [{
     "files": ["src/**/*.spec.js", "test/**"],

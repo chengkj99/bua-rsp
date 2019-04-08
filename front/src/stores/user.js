@@ -1,4 +1,3 @@
-
 import { observable, action, computed } from 'mobx'
 
 import { getUser } from '@/apis/user'

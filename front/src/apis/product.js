@@ -25,13 +25,35 @@ export function addProduct(value) {
     mail: value.mail,
     img_url: value.imgUrl,
     owner: value.owner,
-    status: value.status || 'enable'
+    status: value.status || 'enable',
+    price_value: value.priceValue,
+    price_type: value.priceType
   })
 }
 
 // 更改产品状态
 export function updateProductStatus(id, status) {
   return axios.post(`/api/product/status/${id}`, { status })
+}
+// 更改产品信息
+export function updateProduct(value) {
+  return axios.put(`/api/product/${value.id}`, {
+    pbulisher_id: value.uid,
+    name: value.name,
+    original_price: value.originalPrice,
+    firm_model: value.firmModel,
+    parameter: value.parameter,
+    functional_use: value.functionalUse,
+    desc: value.desc,
+    contacts: value.contacts,
+    phone: value.phone,
+    mail: value.mail,
+    img_url: value.imgUrl,
+    owner: value.owner,
+    status: value.status || 'enable',
+    price_value: value.priceValue,
+    price_type: value.priceType
+  })
 }
 
 // 删除产品

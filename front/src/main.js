@@ -6,7 +6,7 @@ import router from './router'
 import Movue from 'movue'
 import * as mobx from 'mobx'
 import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css'
+// import "element-ui/lib/theme-chalk/index.css"
 import '../static/element-#0F7042/index.css'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
@@ -25,18 +25,21 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-axios.interceptors.response.use(({ status, data: result }) => {
-  if (result.code) {
-    const { code, data } = result
-    if (code !== 200) {
-      return Promise.reject(result)
+axios.interceptors.response.use(
+  ({ status, data: result }) => {
+    if (result.code) {
+      const { code, data } = result
+      if (code !== 200) {
+        return Promise.reject(result)
+      }
+      return data
     }
-    return data
+    return result
+  },
+  error => {
+    return Promise.reject(error)
   }
-  return result
-}, error => {
-  return Promise.reject(error)
-})
+)
 
 /* eslint-disable no-new */
 new Vue({

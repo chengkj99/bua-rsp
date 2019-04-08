@@ -10,7 +10,10 @@ export function getUser(value) {
 // }
 
 export function loginUser(value) {
-  return axios.post('/api/user/login', { name: value.name, password: value.password })
+  return axios.post('/api/user/login', {
+    name: value.name,
+    password: value.password
+  })
 }
 
 // 我的发布的产品
@@ -19,9 +22,21 @@ export function getPublisherProduct(uid) {
 }
 
 export function loginPublisher(value) {
-  return axios.post('/api/publisher/login', { name: value.name, password: value.password })
+  return axios.post('/api/publisher/login', {
+    name: value.name,
+    password: value.password
+  })
 }
 
 // export function getPublisher(value) {
 //   return axios.get('/api/publisher/overview')
 // }
+
+// 注册
+export function registerUser(value) {
+  return axios.post('/api/user/add', {
+    name: value.name,
+    password: value.password,
+    type: 'user'
+  })
+}

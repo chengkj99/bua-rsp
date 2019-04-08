@@ -9,31 +9,52 @@
         新增产品
       </el-button>
     </div>
-    <product-list :value="userProduct" @delete="handleDelete"></product-list>
+    <product-list
+      :value="userProduct"
+      @delete="handleDelete"
+      @set-price="handleSetPrice">
+    </product-list>
 
     <el-dialog title="新增产品" :visible.sync="dialogFormVisible">
       <product-form @submit="handleSubmit" @cancel="dialogFormVisible = false"></product-form>
+    </el-dialog>
+    <el-dialog title="更新计费规则" :visible.sync="dialogPriceFormVisible">
+      <price-form
+        :value="currentProduct"
+        @submit="handleSubmitPriceForm"
+        @cancel="dialogPriceFormVisible = false">
+      </price-form>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import { getPublisherProduct } from '@/apis/user'
-import { addProduct, deleteProduct } from '@/apis/product'
+import { addProduct, deleteProduct, updateProduct } from '@/apis/product'
 import ProductList from './list'
 import ProductForm from './form'
+import PriceForm from './price-form'
 
 export default {
   name: 'user-product',
   components: {
     ProductList,
-    ProductForm
+    ProductForm,
+    PriceForm
   },
   data() {
     return {
       userProduct: [],
       dialogFormVisible: false,
-      uid: 1
+      dialogPriceFormVisible: false,
+      // TODO UPDATE
+      uid: 1,
+      currentProduct: {}
+    }
+  },
+  fromMobx: {
+    uid() {
+      return userStore.uid
     }
   },
   methods: {
@@ -68,11 +89,26 @@ export default {
           this.$message.error('删除失败')
         }
       )
+    },
+    handleSetPrice(product) {
+      this.currentProduct = { ...product }
+      this.dialogPriceFormVisible = true
+    },
+    handleSubmitPriceForm(value) {
+      updateProduct(value).then(
+        res => {
+          this.getPublisherProduct(this.uid)
+          this.dialogPriceFormVisible = false
+        },
+        err => {
+          this.$message.error('更新失败，请重试')
+        }
+      )
     }
   },
   created() {
     this.getPublisherProduct(this.uid)
-  }
+  },
 }
 </script>
 

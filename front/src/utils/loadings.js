@@ -8,9 +8,7 @@ export class Loadings {
   }
 
   constructor(...names) {
-    names.forEach(
-      name => this.add(name)
-    )
+    names.forEach(name => this.add(name))
   }
 
   @action add(name) {

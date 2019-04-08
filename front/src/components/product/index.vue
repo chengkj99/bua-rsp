@@ -45,6 +45,7 @@ export default {
       bookingDialogVisible: false,
       productId: -1,
       publisherId: -1,
+      productName: '',
       details: {},
       viewDetailsDialogVisible: false
     }
@@ -66,9 +67,10 @@ export default {
         data => this.productList = data
       )
     },
-    handleBooking(productId, publisherId) {
+    handleBooking(productId, publisherId, name) {
       this.productId = productId
       this.publisherId = publisherId
+      this.productName = name
       this.bookingDialogVisible = true
     },
     submitBooking(value) {
@@ -77,7 +79,8 @@ export default {
         uid: this.uid,
         username: this.username,
         productId: this.productId,
-        publisherId: this.publisherId
+        publisherId: this.publisherId,
+        productName: this.productName
       }
       addBooking(localValue).then(
         () => {

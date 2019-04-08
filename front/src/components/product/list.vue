@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     handleBooking(row) {
-      this.$emit('booking', row.id, row.pbulisher_id)
+      this.$emit('booking', row.id, row.pbulisher_id, row.name)
     },
     handleViewDetails(row) {
       this.$emit('view-details', row)

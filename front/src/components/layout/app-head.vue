@@ -58,7 +58,7 @@
               <el-menu-item index="login?type=user">用户登录</el-menu-item>
               <el-menu-item index="login?type=publisher">管理员登录</el-menu-item>
             </el-submenu>
-            <el-menu-item index="/4">注册</el-menu-item>
+            <el-menu-item index="register">注册</el-menu-item>
           </template>
         </el-menu>
       </div>

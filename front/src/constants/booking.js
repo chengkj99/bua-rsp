@@ -11,7 +11,7 @@ export const bookingStatusMap = {
 
 export const bookingStatusMapForAudit = {
   [bookingStatuses.notDo]: '未审核',
-  [bookingStatuses.reject]: '未拒绝',
+  [bookingStatuses.reject]: '已拒绝',
   [bookingStatuses.agree]: '已通过'
 }
 
