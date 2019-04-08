@@ -3,6 +3,7 @@ package booking
 type Booking struct {
 	Id          int64  `json:"id"`
 	ProductId   int64  `json:"product_id"`
+	ProductName string `json:"product_name"`
 	Uid         int64  `json:"uid"`
 	PublisherId int64  `json:"publisher_id"` // 产品拥有者 ID
 	BookingName string `json:"booking_name"` // 预约人姓名

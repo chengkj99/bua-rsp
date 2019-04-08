@@ -4,6 +4,7 @@ import (
 	"bua-rsp/api/db"
 	"bua-rsp/api/modules/booking"
 	"bua-rsp/api/modules/overview"
+	"bua-rsp/api/modules/price"
 	"bua-rsp/api/modules/product"
 	"bua-rsp/api/modules/publisher"
 	"bua-rsp/api/modules/user"
@@ -22,6 +23,7 @@ func main() {
 	booking.Route(e.Group("/booking"))
 	user.Route(e.Group("/user"))
 	publisher.Route(e.Group("/publisher"))
+	price.Route(e.Group("/price"))
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

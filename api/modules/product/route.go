@@ -28,5 +28,5 @@ func Route(rg *echo.Group) {
 	rg.PUT("/status/:id", UpdateStatus)
 
 	// 上传图片
-	rg.POST("/upload/:id", Upload)
+	rg.POST("/upload/:id", UploadForAli)
 }

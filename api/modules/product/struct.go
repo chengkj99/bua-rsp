@@ -14,8 +14,15 @@ type Product struct {
 	Mail          string `json:"mail"`
 	ImgUrl        string `json:"img_url"`
 	Owner         string `json:"owner"`
-	Status        string `json:"status"` // enable, disable
+	Status        string `json:"status"`     // enable, disable
+	PriceType     string `json:"price_type"` // day、hour、times
+	PriceValue    string `json:"price_value"`
 }
 type Products struct {
 	Data []Product `json:"data"`
+}
+
+type UploadResponse struct {
+	Key  string
+	Hash int
 }

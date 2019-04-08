@@ -13,12 +13,7 @@ import (
 	"golang.org/x/net/context"
 )
 
-type UploadResponse struct {
-	Key  string
-	Hash string
-}
-
-func Upload(c echo.Context) error {
+func UploadForQiniu(c echo.Context) error {
 
 	// Source File
 	file, err := c.FormFile("file")
@@ -74,5 +69,5 @@ func Upload(c echo.Context) error {
 		return c.JSON(200, common.Response{Code: 50001, Message: "更新数据库错误", Data: affected})
 	}
 
-	return c.JSON(200, common.Response{Code: 200, Message: "ok", Data: UploadResponse{ret.Key, ret.Hash}})
+	return c.JSON(200, common.Response{Code: 200, Message: "ok"})
 }
