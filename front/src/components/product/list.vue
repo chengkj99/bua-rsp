@@ -63,6 +63,7 @@
 <script>
 import { statusNameMap, statusesStyle, imgDomainName } from '@/constants/product'
 import { userTypes } from '@/constants/user'
+
 export default {
   name: 'product-list',
   props: ['values', 'utype'],
@@ -74,6 +75,7 @@ export default {
       userTypes,
       currentPage: 1,
       pageSize: 13
+
     }
   },
   computed: {

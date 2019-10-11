@@ -45,7 +45,7 @@ func GetList(c echo.Context) error {
 func GetListByUID(c echo.Context) error {
 	engine := db.Engine
 	var bookings Bookings
-	uid, _ := strconv.Atoi(c.Param("uid"))
+	uid, _ := strconv.Atoi(c.Param("id"))
 	engine.Sql("SELECT * FROM booking WHERE uid = ?", uid).Find(&bookings.Data)
 	res := common.Response{
 		Code:    http.StatusOK,
@@ -55,12 +55,26 @@ func GetListByUID(c echo.Context) error {
 	return c.JSON(http.StatusOK, res)
 }
 
-// GetListByUID 可根据 uid  查询
+// GetListByPublisherID 可根据 publisher_id  查询
 func GetListByPublisherID(c echo.Context) error {
 	engine := db.Engine
 	var bookings Bookings
-	publisherId, _ := strconv.Atoi(c.Param("uid"))
+	publisherId, _ := strconv.Atoi(c.Param("id"))
 	engine.Sql("SELECT * FROM booking WHERE publisher_id = ?", publisherId).Find(&bookings.Data)
+	res := common.Response{
+		Code:    http.StatusOK,
+		Message: http.StatusText(http.StatusOK),
+		Data:    bookings.Data,
+	}
+	return c.JSON(http.StatusOK, res)
+}
+
+// GetListByProductID 可根据 productID  查询
+func GetListByProductID(c echo.Context) error {
+	engine := db.Engine
+	var bookings Bookings
+	publisherId, _ := strconv.Atoi(c.Param("id"))
+	engine.Sql("SELECT * FROM booking WHERE product_id = ?", publisherId).Find(&bookings.Data)
 	res := common.Response{
 		Code:    http.StatusOK,
 		Message: http.StatusText(http.StatusOK),

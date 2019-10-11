@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 // 查询用户预订列表
-export function getUserBookingList(uid) {
-  return axios.get(`/api/booking/list/user/${uid}`)
+export function getUserBookingList(id) {
+  return axios.get(`/api/booking/list/user/${id}`)
 }
 
 // 查询发布者审核列表
@@ -29,4 +29,9 @@ export function addBooking(value) {
 export function updateBooing(value) {
   const { id, ...others } = value
   return axios.put(`/api/booking/${id}`, others)
+}
+
+// 查询已被订阅的产品时间
+export function getProductUsedTimes(id) {
+  return axios.get(`/api/booking/list/product/${id}`)
 }
