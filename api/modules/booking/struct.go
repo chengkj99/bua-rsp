@@ -11,7 +11,7 @@ type Booking struct {
 	EndTime     int64  `json:"end_time"`     // 结束时间时间戳
 	Reason      string `json:"reason"`       // 申请理由
 	Reply       string `json:"reply"`        // 审核回复
-	Status      string `json:"status"`       // 审核人员操作状态
+	Status      string `json:"status"`       // 审核人员操作状态 notDo,agree,reject,unpaid,paid
 }
 
 type Bookings struct {
