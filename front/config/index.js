@@ -6,7 +6,6 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -14,6 +13,10 @@ module.exports = {
       '/api': {
         target: 'http://localhost:1323',
         pathRewrite: { '^/api': '' }
+      },
+      '/pay': {
+        target: 'http://localhost:1326',
+        pathRewrite: { '^/pay': '' }
       }
     },
 

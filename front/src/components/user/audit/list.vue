@@ -62,6 +62,8 @@
 <script>
 import TablePage from '@/components/common/table-page'
 import { bookingStatuses, bookingStatusMapForAudit, bookingStatusStyle } from '@/constants/booking'
+import moment from 'moment'
+
 export default {
   name: 'user-booking-list',
   props: ['value'],
@@ -114,7 +116,7 @@ export default {
       })
     },
     humanizeTime(time) {
-      return time && time.split('T')[0]
+      return moment.unix(time).format('YYYY-MM-DD')
     }
   }
 }
