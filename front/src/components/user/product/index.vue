@@ -48,7 +48,7 @@ export default {
       dialogFormVisible: false,
       dialogPriceFormVisible: false,
       // TODO UPDATE
-      uid: 1,
+      // uid: 1,
       currentProduct: {}
     }
   },

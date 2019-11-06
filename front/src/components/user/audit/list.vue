@@ -43,13 +43,14 @@
           <el-button
             size="mini"
             type="danger"
-            :disabled="scope.row.status === bookingStatuses.reject"
+            :disabled="scope.row.status !== bookingStatuses.notDo"
             @click="onReject(scope.row)">
             拒绝
           </el-button>
           <el-button
             size="mini"
             type="success"
+            :disabled="scope.row.status !== bookingStatuses.notDo"
             @click="onApprove(scope.row)">
             通过
           </el-button>
@@ -117,6 +118,9 @@ export default {
     },
     humanizeTime(time) {
       return moment.unix(time).format('YYYY-MM-DD')
+    },
+    isBtnVisible() {
+
     }
   }
 }

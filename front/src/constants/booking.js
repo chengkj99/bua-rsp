@@ -26,5 +26,5 @@ export const bookingStatusStyle = {
   [bookingStatuses.reject]: 'danger',
   [bookingStatuses.agree]: 'success',
   [bookingStatuses.unpaid]: 'warning',
-  [bookingStatuses.paid]: 'success'
+  [bookingStatuses.paid]: 'primary'
 }
