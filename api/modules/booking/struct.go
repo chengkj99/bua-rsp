@@ -12,6 +12,7 @@ type Booking struct {
 	Reason      string `json:"reason"`       // 申请理由
 	Reply       string `json:"reply"`        // 审核回复
 	Status      string `json:"status"`       // 审核人员操作状态 notDo,agree,reject,unpaid,paid
+	TotalPrice  int64  `json:"total_price"`  // 预约总费用
 }
 
 type Bookings struct {

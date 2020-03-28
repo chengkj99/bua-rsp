@@ -24,7 +24,6 @@ const aliPayOptins = {
 }
 
 app.get('/', function (req, res) {
-  console.log('Hello Pay-ex')
   res.send('Hello Pay-ex!');
 });
 
@@ -36,6 +35,8 @@ app.post('/notify*', function (req, res) {
 app.get('/alipay', async function (req, res) {
   const productId = req.param('productId')
   const bookingId = req.param('bookingId')
+  const totalAmount = req.param('totalAmount')
+  const productName = req.param('productName')
   const alipaySdk = new AlipaySdk({
     ...aliPayOptins
   });
@@ -48,9 +49,9 @@ app.get('/alipay', async function (req, res) {
   formData.addField('bizContent', {
     outTradeNo: `${productId}/${bookingId}`,
     productCode: 'FAST_INSTANT_TRADE_PAY',
-    totalAmount: '0.1', // TODO
-    subject: '商品', // TODO
-    body: '商品详情', // TODO
+    totalAmount: totalAmount,
+    subject: productName,
+    body: productName,
   });
 
   const result = await alipaySdk.exec(

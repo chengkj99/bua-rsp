@@ -2,7 +2,7 @@ package product
 
 type Product struct {
 	Id            int64  `json:"id"`
-	PublisherId   int64  `json:"pbulisher_id"`
+	PublisherId   int64  `json:"publisher_id"`
 	Name          string `json:"name"`
 	OriginalPrice string `json:"original_price"`
 	FirmModel     string `json:"firm_model"`

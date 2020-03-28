@@ -19,7 +19,9 @@ func Route(rg *echo.Group) {
 // GetOverview 根据 cookie 的 user type 请求相应的信息
 func GetOverview(c echo.Context) error {
 	cookie, err := c.Cookie("utype")
-	common.CheckErr(err)
+	if err != nil {
+		return c.JSON(http.StatusUnauthorized, common.Response{Code: http.StatusUnauthorized, Message: "未登录", Data: nil})
+	}
 	if cookie.Value == "user" {
 		return user.GetUserByCookie(c)
 	}

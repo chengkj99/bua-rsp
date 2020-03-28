@@ -3,7 +3,6 @@ package booking
 import (
 	"bua-rsp/api/db"
 	"bua-rsp/api/modules/common"
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -15,8 +14,6 @@ func Create(c echo.Context) error {
 	engine := db.Engine
 
 	c.Bind(&booking)
-
-	fmt.Println("@@@@", &booking)
 
 	affected, err := engine.Insert(&booking)
 	common.CheckErr(err)
