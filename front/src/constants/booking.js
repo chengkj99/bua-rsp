@@ -28,3 +28,14 @@ export const bookingStatusStyle = {
   [bookingStatuses.unpaid]: 'warning',
   [bookingStatuses.paid]: 'primary'
 }
+
+export const priceTypes = {
+  day: 'day',
+  hour: 'hour',
+  times: 'times'
+}
+export const priceTypeNames = {
+  [priceTypes.day]: '按使用的天数计费',
+  [priceTypes.hour]: '按使用的小时数计费',
+  [priceTypes.times]: '按单次使用计费'
+}

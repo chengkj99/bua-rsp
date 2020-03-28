@@ -21,7 +21,8 @@ export function addBooking(value) {
     end_time: value.endTime,
     reason: value.reason,
     status: 'notDo',
-    product_name: value.productName
+    product_name: value.productName,
+    total_price: value.totalPrice
   })
 }
 

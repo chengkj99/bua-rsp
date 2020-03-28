@@ -9,8 +9,8 @@
 
     <el-dialog title="产品预约" width="50%" :visible.sync="bookingDialogVisible">
       <booking-form
-        :pid="productId"
-        :times="usedTimes"
+        :price-type="priceType"
+        :price-value="priceValue"
         ref="bookingForm"
         @cancel="handleCancelBooking"
         @submit="submitBooking">
@@ -49,7 +49,9 @@ export default {
       productName: '',
       details: {},
       viewDetailsDialogVisible: false,
-      usedTimes: []
+      usedTimes: [],
+      priceType: '',
+      priceValue: ''
     }
   },
   fromMobx: {
@@ -72,11 +74,13 @@ export default {
     getProductUsedTimes(id) {
       getProductUsedTimes(id).then(data => this.usedTimes = data ? data.map(item => ({startTime: item.start_time, endTime: item.end_time})) : [])
     },
-    handleBooking(productId, publisherId, name) {
-      this.getProductUsedTimes(productId)
-      this.productId = productId
-      this.publisherId = publisherId
-      this.productName = name
+    handleBooking(product) {
+      this.getProductUsedTimes(product.id)
+      this.productId = product.id
+      this.publisherId = product.publisherId
+      this.productName = product.name
+      this.priceType = product.price_type
+      this.priceValue = product.price_value
       this.bookingDialogVisible = true
     },
     submitBooking(value) {

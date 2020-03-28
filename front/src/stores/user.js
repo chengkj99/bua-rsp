@@ -3,7 +3,7 @@ import { observable, action, computed } from 'mobx'
 import { getUser } from '@/apis/user'
 import { Loadings } from '@/utils/loadings'
 
-export class UserStore {
+class UserStore {
   loadings = new Loadings()
 
   @computed get loading() {

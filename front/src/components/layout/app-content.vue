@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     isShowBg() {
-      return this.currentRoutePath !== '/home'
+      return this.currentRoutePath !== '/home' && this.currentRoutePath !== '/login'
     }
   },
   methods: {}

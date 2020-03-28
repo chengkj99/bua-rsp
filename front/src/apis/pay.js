@@ -1,10 +1,12 @@
 import axios from 'axios'
 
-export function getPayUrl(productId, bookingId) {
+export function getPayUrl(productId, bookingId, totalAmount, productName) {
   return axios.get('/pay/alipay', {
     params: {
       productId,
-      bookingId
+      bookingId,
+      totalAmount,
+      productName
     }
   })
 }

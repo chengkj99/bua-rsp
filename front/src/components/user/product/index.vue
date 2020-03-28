@@ -107,6 +107,7 @@ export default {
     }
   },
   created() {
+    console.log('##', uid) // TODO
     this.getPublisherProduct(this.uid)
   },
 }

@@ -13,7 +13,7 @@ export function getProductListById(id) {
 // 添加产品
 export function addProduct(value) {
   return axios.post(`/api/product/add`, {
-    pbulisher_id: value.uid,
+    publisher_id: value.uid,
     name: value.name,
     original_price: value.originalPrice,
     firm_model: value.firmModel,
@@ -38,7 +38,7 @@ export function updateProductStatus(id, status) {
 // 更改产品信息
 export function updateProduct(value) {
   return axios.put(`/api/product/${value.id}`, {
-    pbulisher_id: value.uid,
+    publisher_id: value.uid,
     name: value.name,
     original_price: value.originalPrice,
     firm_model: value.firmModel,

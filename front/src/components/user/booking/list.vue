@@ -105,10 +105,10 @@ export default {
   },
   methods: {
     payment(value) {
-      const { product_id: productId, id: bookingId } = value;
+      const { product_id: productId, id: bookingId, product_name: productName, total_price: totalAmount } = value;
       const timestamp = +new Date();
       const productIdOfTime = `${timestamp}/${productId}`;
-      getPayUrl(productIdOfTime, bookingId).then(res => {
+      getPayUrl(productIdOfTime, bookingId, totalAmount, productName).then(res => {
         const { data } = res;
         window.location.href = data;
       });

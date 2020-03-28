@@ -12,7 +12,7 @@
 import { getPublisherBookingList } from '@/apis/booking'
 import { updateBooing } from '@/apis/booking'
 import AuditList from './list'
-import userStore from '@/stores/user'
+import userStore from '@/stores/user.js'
 export default {
   nanm: 'publisher-audit',
   components: {
@@ -27,6 +27,15 @@ export default {
     publisherId() {
       return userStore.uid
     }
+  },
+  mounted() {
+    this.$watch(
+      'publisherId',
+      value => {
+        value && this.fetch(value)
+      },
+      { immediate: true }
+    )
   },
   methods: {
     fetch(publisherId) {
@@ -51,13 +60,6 @@ export default {
     handleReject(value) {
       this.doAudit(value, '已审核拒绝')
     }
-  },
-  mounted() {
-    this.$watch(
-      'publisherId',
-      value => (value && this.fetch(value)),
-      { immediate: true }
-    )
   }
 }
 </script>
