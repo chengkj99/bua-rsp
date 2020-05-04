@@ -1,6 +1,6 @@
 <template>
   <div class="app-footer">
-    <p>© COPYRIGHT 20018-2023</p>
+    <p>© COPYRIGHT 2018-2023</p>
   </div>
 </template>
 
@@ -19,7 +19,6 @@ export default {
   background-color: #ffffff;
   color: #ffffff;
   width: 100%;
-  // margin-top: 100px;
 
   > p {
     text-align: center;
