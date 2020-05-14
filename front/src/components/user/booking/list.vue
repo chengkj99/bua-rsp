@@ -1,42 +1,48 @@
 <template>
   <!--用户预约列表-->
-  <div class='user-booking-list'>
+  <div class="user-booking-list">
     <table-page :data="tableData">
       <el-table-column label="产品名称">
-        <template slot-scope="scope">
-           {{ scope.row.product_name }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.product_name }}</template>
       </el-table-column>
       <el-table-column label="预约开始时间">
-        <template slot-scope="scope">
-           {{ scope.row.start_time }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.start_time }}</template>
       </el-table-column>
       <el-table-column label="预约结束时间">
-        <template slot-scope="scope">
-           {{ scope.row.end_time }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.end_time }}</template>
       </el-table-column>
       <el-table-column label="申请理由">
         <template slot-scope="scope">
-           {{ scope.row.reason || '-' }}
+          <el-input
+            type="textarea"
+            readonly
+            :autosize="{ minRows: 1, maxRows: 4}"
+            :value="scope.row.reason || '无'"
+          ></el-input>
         </template>
       </el-table-column>
       <el-table-column label="审核回复">
         <template slot-scope="scope">
-           {{ scope.row.reply || '-' }}
+          <el-input
+            type="textarea"
+            readonly
+            :autosize="{ minRows: 1, maxRows: 4}"
+            :value="scope.row.reply || '无'"
+          ></el-input>
         </template>
       </el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
-          <el-tag :type="bookingStatusStyle[scope.row.status]">
-            {{ bookingStatusMap[scope.row.status] }}
-          </el-tag>
-          <el-button class="pay-btn" type="text" size="small"
+          <el-tag
+            :type="bookingStatusStyle[scope.row.status]"
+          >{{ bookingStatusMap[scope.row.status] }}</el-tag>
+          <el-button
+            class="pay-btn"
+            type="text"
+            size="small"
             @click="payment(scope.row)"
-            v-if="bookingStatuses.agree === scope.row.status">
-            立即支付
-          </el-button>
+            v-if="bookingStatuses.agree === scope.row.status"
+          >立即支付</el-button>
         </template>
       </el-table-column>
     </table-page>
@@ -67,7 +73,7 @@ export default {
       bookingStatusStyle,
       dialogVisible: false,
       localValue: [],
-      outTradeNo: ''
+      outTradeNo: ""
     };
   },
   watch: {
@@ -105,16 +111,23 @@ export default {
   },
   methods: {
     payment(value) {
-      const { product_id: productId, id: bookingId, product_name: productName, total_price: totalAmount } = value;
+      const {
+        product_id: productId,
+        id: bookingId,
+        product_name: productName,
+        total_price: totalAmount
+      } = value;
       const timestamp = +new Date();
       const productIdOfTime = `${timestamp}/${productId}`;
-      getPayUrl(productIdOfTime, bookingId, totalAmount, productName).then(res => {
-        const { data } = res;
-        window.location.href = data;
-      });
+      getPayUrl(productIdOfTime, bookingId, totalAmount, productName).then(
+        res => {
+          const { data } = res;
+          window.location.href = data;
+        }
+      );
     },
     updatePaisStatus(value) {
-      updateBooing(value)
+      updateBooing(value);
     }
   }
 };

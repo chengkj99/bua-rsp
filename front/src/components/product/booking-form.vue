@@ -106,11 +106,11 @@ export default {
       };
     },
     possiblePrice() {
-      let n = 0;
+      let n = 1;
       if (this.priceType === priceTypes.day) {
         const [startTime, endTime] = this.form.times;
         const tempTime = moment.duration(endTime - startTime);
-        n = tempTime.days() || n;
+        n = tempTime.days() + 1 || n;
       }
       if (this.priceType === priceTypes.times) {
         n = 1;
@@ -118,7 +118,7 @@ export default {
       if (this.priceType === priceTypes.hour) {
         const [startTime, endTime] = this.form.subtimes;
         const tempTime = moment.duration(endTime - startTime);
-        n = tempTime.hours() || n;
+        n = tempTime.hours() + 1 || n;
       }
       return n * this.priceValue;
     }

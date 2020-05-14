@@ -12,8 +12,15 @@
       <el-table-column label="厂商型号">
         <template slot-scope="scope">{{ scope.row.firm_model }}</template>
       </el-table-column>
-      <el-table-column label="性能参数">
-        <template slot-scope="scope">{{ scope.row.parameter }}</template>
+      <el-table-column label="性能参数" width="280">
+        <template slot-scope="scope">
+          <el-input
+            type="textarea"
+            readonly
+            :autosize="{ minRows: 1, maxRows: 6}"
+            :value="scope.row.parameter || '无'"
+          ></el-input>
+        </template>
       </el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
@@ -76,10 +83,7 @@ export default {
   },
   methods: {
     handleBooking(row) {
-      this.$emit(
-        "booking",
-        row
-      );
+      this.$emit("booking", row);
     },
     handleViewDetails(row) {
       this.$emit("view-details", row);
