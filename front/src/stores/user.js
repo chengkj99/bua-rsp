@@ -32,9 +32,7 @@ class UserStore {
         if (err && (err.code === 401 || err.code === 403)) {
           this.updateUser(null)
           window.location.href = '/login'
-          return
         }
-        return Promise.reject(err)
       }
     )
     return this.loadings.promise('getUser', fetching)
