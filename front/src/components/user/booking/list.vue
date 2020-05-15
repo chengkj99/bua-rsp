@@ -6,10 +6,10 @@
         <template slot-scope="scope">{{ scope.row.product_name }}</template>
       </el-table-column>
       <el-table-column label="预约开始时间">
-        <template slot-scope="scope">{{ scope.row.start_time }}</template>
+        <template slot-scope="scope">{{ humanizeTime(scope.row.start_time) }}</template>
       </el-table-column>
       <el-table-column label="预约结束时间">
-        <template slot-scope="scope">{{ scope.row.end_time }}</template>
+        <template slot-scope="scope">{{ humanizeTime(scope.row.end_time) }}</template>
       </el-table-column>
       <el-table-column label="申请理由">
         <template slot-scope="scope">
@@ -27,7 +27,7 @@
             type="textarea"
             readonly
             :autosize="{ minRows: 1, maxRows: 4}"
-            :value="scope.row.reply || '无'"
+            :value="scope.row.reply || '-'"
           ></el-input>
         </template>
       </el-table-column>
@@ -59,6 +59,7 @@ import {
 import { getPayUrl } from "@/apis/pay";
 import { updateBooing } from "@/apis/booking";
 import { log } from "util";
+import moment from "moment";
 
 export default {
   name: "user-booking-list",
@@ -128,6 +129,9 @@ export default {
     },
     updatePaisStatus(value) {
       updateBooing(value);
+    },
+    humanizeTime(time) {
+      return moment.unix(time).format("YYYY-MM-DD");
     }
   }
 };

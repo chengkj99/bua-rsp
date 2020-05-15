@@ -12,11 +12,16 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:1323',
-        pathRewrite: { '^/api': '' }
+        pathRewrite: {
+          '^/api': ''
+        }
       },
       '/pay': {
         target: 'http://localhost:1326',
-        pathRewrite: { '^/pay': '' }
+        pathRewrite: {
+          '^/pay': ''
+        },
+        changeOrigin: true
       }
     },
 
