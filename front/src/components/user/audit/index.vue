@@ -1,67 +1,74 @@
 <template>
-  <div class='publisher-audit'>
-    <audit-list
-      :value="value"
-      @approve="hanldeApprove"
-      @reject="handleReject">
-    </audit-list>
+  <div class="publisher-audit">
+    <audit-list :value="value" @approve="hanldeApprove" @reject="handleReject"></audit-list>
   </div>
 </template>
 
 <script>
-import { getPublisherBookingList } from '@/apis/booking'
-import { updateBooing } from '@/apis/booking'
-import AuditList from './list'
-import userStore from '@/stores/user.js'
+import { isEmpty } from 'lodash'
+import { getPublisherBookingList } from "@/apis/booking";
+import { updateBooing } from "@/apis/booking";
+import AuditList from "./list";
+import userStore from "@/stores/user.js";
+
+function sortBy(props) {
+  return function(a, b) {
+    return  b[props] - a[props];
+  };
+}
+
 export default {
-  nanm: 'publisher-audit',
+  nanm: "publisher-audit",
   components: {
     AuditList
   },
   data() {
     return {
       value: []
-    }
+    };
   },
   fromMobx: {
     publisherId() {
-      return userStore.uid
+      return userStore.uid;
     }
   },
   mounted() {
     this.$watch(
-      'publisherId',
+      "publisherId",
       value => {
-        value && this.fetch(value)
+        value && this.fetch(value);
       },
       { immediate: true }
-    )
+    );
   },
   methods: {
     fetch(publisherId) {
-      getPublisherBookingList(publisherId).then(
-        data => this.value = data
-      )
+      getPublisherBookingList(publisherId).then(data => {
+        if (isEmpty(data)) {
+          return;
+        }
+        this.value = data.sort(sortBy("start_time"));
+      });
     },
     doAudit(value, successText) {
       updateBooing(value).then(
         () => {
-          this.$message.success(successText)
-          this.fetch(this.publisherId)
+          this.$message.success(successText);
+          this.fetch(this.publisherId);
         },
         () => {
-          this.$message.danger('审核失败')
+          this.$message.danger("审核失败");
         }
-      )
+      );
     },
     hanldeApprove(value) {
-      this.doAudit(value, '已审核通过')
+      this.doAudit(value, "已审核通过");
     },
     handleReject(value) {
-      this.doAudit(value, '已审核拒绝')
+      this.doAudit(value, "已审核拒绝");
     }
   }
-}
+};
 </script>
 
 <style lang='less' scoped>

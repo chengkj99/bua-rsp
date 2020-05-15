@@ -23,7 +23,7 @@
           ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="回复内容"  width="200">
+      <el-table-column label="回复内容" width="200">
         <template slot-scope="scope">
           <el-input
             type="textarea"

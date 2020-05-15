@@ -9,6 +9,7 @@
 
     <el-dialog title="产品预约" width="50%" :visible.sync="bookingDialogVisible">
       <booking-form
+        :product-name="productName"
         :price-type="priceType"
         :price-value="priceValue"
         ref="bookingForm"
@@ -77,7 +78,7 @@ export default {
     handleBooking(product) {
       this.getProductUsedTimes(product.id)
       this.productId = product.id
-      this.publisherId = product.publisherId
+      this.publisherId = product.publisher_id
       this.productName = product.name
       this.priceType = product.price_type
       this.priceValue = product.price_value

@@ -1,6 +1,9 @@
 <template>
   <div class="booking-form">
     <el-form ref="form" :model="form" :rules="rules" label-width="80px" size="small">
+      <el-form-item label="产品名称">
+        <p class="product-title">{{productName}}</p>
+      </el-form-item>
       <el-form-item label="计费类型">
         <el-tag class="tag-block">{{priceTypeNames[priceType] || '暂未设定'}}</el-tag>
       </el-form-item>
@@ -16,7 +19,7 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item label="预约日期" prop="times" v-if="isSubtimesVisible">
-        <el-date-picker v-model="form.subDate" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker style="width: 100%" v-model="form.subDate" type="date" placeholder="选择日期"></el-date-picker>
       </el-form-item>
       <el-form-item label="使用时长" prop="subtimes" v-if="isSubtimesVisible">
         <el-time-picker
@@ -82,7 +85,7 @@ const resetTargetSecondTime = (originDate, h = 23, m = 59, s = 59, ms = 59) => {
 };
 export default {
   name: "booking-form",
-  props: ["priceType", "priceValue"],
+  props: ["priceType", "priceValue", "productName"],
   data() {
     return {
       priceTypeNames,
@@ -159,6 +162,10 @@ export default {
   position: relative;
   display: block;
 
+  .product-title {
+    margin: 0;
+    text-align: left;
+  }
   .btn-wrapper {
     text-align: right;
   }
