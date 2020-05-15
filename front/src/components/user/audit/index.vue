@@ -11,12 +11,6 @@ import { updateBooing } from "@/apis/booking";
 import AuditList from "./list";
 import userStore from "@/stores/user.js";
 
-function sortBy(props) {
-  return function(a, b) {
-    return  b[props] - a[props];
-  };
-}
-
 export default {
   nanm: "publisher-audit",
   components: {
@@ -47,7 +41,7 @@ export default {
         if (isEmpty(data)) {
           return;
         }
-        this.value = data.sort(sortBy("start_time"));
+        this.value = data
       });
     },
     doAudit(value, successText) {

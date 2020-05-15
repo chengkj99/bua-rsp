@@ -46,7 +46,7 @@ func GetListByUID(c echo.Context) error {
 	engine := db.Engine
 	var bookings Bookings
 	uid, _ := strconv.Atoi(c.Param("id"))
-	engine.Sql("SELECT * FROM booking WHERE uid = ?", uid).Find(&bookings.Data)
+	engine.Sql("SELECT * FROM booking WHERE uid = ? ORDER BY start_time DESC", uid).Find(&bookings.Data)
 	res := common.Response{
 		Code:    http.StatusOK,
 		Message: http.StatusText(http.StatusOK),
@@ -59,8 +59,8 @@ func GetListByUID(c echo.Context) error {
 func GetListByPublisherID(c echo.Context) error {
 	engine := db.Engine
 	var bookings Bookings
-	publisherId, _ := strconv.Atoi(c.Param("id"))
-	engine.Sql("SELECT * FROM booking WHERE publisher_id = ?", publisherId).Find(&bookings.Data)
+	publisherID, _ := strconv.Atoi(c.Param("id"))
+	engine.Sql("SELECT * FROM booking WHERE publisher_id = ? ORDER BY start_time DESC", publisherID).Find(&bookings.Data)
 	res := common.Response{
 		Code:    http.StatusOK,
 		Message: http.StatusText(http.StatusOK),
@@ -73,8 +73,8 @@ func GetListByPublisherID(c echo.Context) error {
 func GetListByProductID(c echo.Context) error {
 	engine := db.Engine
 	var bookings Bookings
-	publisherId, _ := strconv.Atoi(c.Param("id"))
-	engine.Sql("SELECT * FROM booking WHERE product_id = ?", publisherId).Find(&bookings.Data)
+	publisherID, _ := strconv.Atoi(c.Param("id"))
+	engine.Sql("SELECT * FROM booking WHERE product_id = ? ORDER BY start_time DESC", publisherID).Find(&bookings.Data)
 	res := common.Response{
 		Code:    http.StatusOK,
 		Message: http.StatusText(http.StatusOK),
