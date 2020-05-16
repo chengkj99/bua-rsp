@@ -61,3 +61,16 @@ GOARCH=amd64 GOOS=linux go build main.go
 # /root/workspace/gospace/src/dist
 sh start.sh
 ```
+
+### 数据库
+
+先在 workbench 中操作导出数据，生成 `Dump20200516.sql` 文件。
+
+登录服务器导入 sql 文件：
+
+```sh
+mysql
+mysql>show databases;
+mysql>use bua_rsp;
+mysql>source /root/workspace/gospace/src/dist/Dump20200516.sql;
+```
