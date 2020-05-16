@@ -1,6 +1,6 @@
 # 科研仪器共享平台管理系统
 
-## DEV
+## Dev
 
 ### FrontEnd
 
@@ -26,7 +26,24 @@ cd pay-ex
 node app.js
 ```
 
-## PRODUCTION
+## Build
+
+## Front
+
+```sh
+cd front
+npm run build
+```
+
+## Api Server
+
+```sh
+cd api
+# for linux
+GOARCH=amd64 GOOS=linux go build main.go
+```
+
+## Production
 
 生产环境部署在阿里云服务环境中。
 
